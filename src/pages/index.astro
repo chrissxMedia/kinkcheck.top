@@ -1,0 +1,72 @@
+---
+import { BaseLayout } from "cmdesigns";
+import Rater from "../components/Rater";
+import { kinks, ratingColors, ratingNames } from "../base";
+---
+
+<BaseLayout
+	lang="en"
+	copyrightstart="2023"
+	title="KinkChecker"
+	favicon="/favicon.svg"
+>
+	<div class="header">
+		<h1>KinkCheck<span class="h2thing">.Top</span></h1>
+		{
+			[...ratingNames.keys()].map((i) => (
+				<div class="rater">
+					<button style={"background-color:" + ratingColors[i]} />
+					{ratingNames[i]}
+				</div>
+			))
+		}
+	</div>
+	<div class="g">
+		{
+			Object.entries(kinks).map(([cat, kinks]) => (
+				<div>
+					<h2>{cat}</h2>
+					{kinks.map((kink) => (
+						<Rater client:load text={kink} />
+					))}
+				</div>
+			))
+		}
+	</div>
+</BaseLayout>
+
+<style is:global>
+	h1 {
+		margin: 0;
+	}
+	.h2thing {
+		font-size: 0.75em;
+	}
+	.header {
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-columns: auto auto auto auto auto auto auto;
+		align-items: center;
+	}
+	.g {
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-columns: auto auto auto;
+	}
+	h2 {
+		margin-bottom: 0.25em;
+	}
+	.rater {
+		font-size: 16pt;
+		padding-bottom: 2px;
+		cursor: pointer;
+		user-select: none;
+	}
+	.rater button {
+		width: 16pt;
+		height: 16pt;
+		border: none;
+		cursor: pointer;
+		margin-right: 4px;
+	}
+</style>

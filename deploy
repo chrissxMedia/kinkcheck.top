@@ -1,0 +1,5 @@
+#!/bin/sh
+set -uxe
+
+npm install
+npm run build
