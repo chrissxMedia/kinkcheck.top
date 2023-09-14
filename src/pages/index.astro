@@ -2,19 +2,16 @@
 import { BaseLayout } from "cmdesigns";
 import Rater from "../components/Rater";
 import { kinks, ratingColors, ratingNames } from "../base";
+import favicon from "../favicon.png";
+import { version } from "../../package.json";
 ---
 
-<BaseLayout
-	lang="en"
-	copyrightstart="2023"
-	title="KinkChecker"
-	favicon="/favicon.svg"
->
+<BaseLayout lang="en" copyrightstart="2023" title="KinkCheck" {favicon}>
 	<div class="header">
-		<h1>KinkCheck<span class="h2thing">.Top</span></h1>
+		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
 		{
 			[...ratingNames.keys()].map((i) => (
-				<div class="rater">
+				<div class="rater noclick">
 					<button style={"background-color:" + ratingColors[i]} />
 					{ratingNames[i]}
 				</div>
@@ -68,5 +65,8 @@ import { kinks, ratingColors, ratingNames } from "../base";
 		border: none;
 		cursor: pointer;
 		margin-right: 4px;
+	}
+	.noclick, .noclick button {
+		cursor: auto;
 	}
 </style>
