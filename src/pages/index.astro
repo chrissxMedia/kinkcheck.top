@@ -7,7 +7,7 @@ import { version } from "../../package.json";
 ---
 
 <BaseLayout lang="en" copyrightstart="2023" title="KinkCheck" {favicon}>
-	<div class="header">
+	<header>
 		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
 		{
 			[...ratingNames.keys()].map((i) => (
@@ -17,8 +17,8 @@ import { version } from "../../package.json";
 				</div>
 			))
 		}
-	</div>
-	<div class="g">
+	</header>
+	<main>
 		{
 			Object.entries(kinks).map(([cat, kinks]) => (
 				<div>
@@ -29,7 +29,7 @@ import { version } from "../../package.json";
 				</div>
 			))
 		}
-	</div>
+	</main>
 </BaseLayout>
 
 <style is:global>
@@ -39,13 +39,13 @@ import { version } from "../../package.json";
 	.h2thing {
 		font-size: 0.75em;
 	}
-	.header {
+	header {
 		display: grid;
 		grid-template-rows: auto;
 		grid-template-columns: auto auto auto auto auto auto auto;
 		align-items: center;
 	}
-	.g {
+	main {
 		display: grid;
 		grid-template-rows: auto;
 		grid-template-columns: auto auto auto;
@@ -66,7 +66,8 @@ import { version } from "../../package.json";
 		cursor: pointer;
 		margin-right: 4px;
 	}
-	.noclick, .noclick button {
+	.noclick,
+	.noclick button {
 		cursor: auto;
 	}
 </style>
