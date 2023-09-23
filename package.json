@@ -1,7 +1,7 @@
 {
   "name": "kinkcheck",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -12,7 +12,7 @@
   "dependencies": {
     "@astrojs/preact": "^3.0.0",
     "astro": "^3.0.13",
-    "cmdesigns": "^0.0.10",
+    "cmdesigns": "^0.0.11",
     "preact": "^10.17.1"
   }
 }

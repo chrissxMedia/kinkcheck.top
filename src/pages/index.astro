@@ -18,12 +18,14 @@ import { version } from "../../package.json";
 			))
 		}
 	</header>
+	<!-- TODO: some explainations, especially of how the kinks should be interpreted -->
+	<!-- TODO: show positions -->
 	<main>
 		{
 			Object.entries(kinks).map(([cat, kinks]) => (
 				<div>
 					<h2>{cat}</h2>
-					{kinks.map((kink) => (
+					{kinks.map(([kink, _positions]) => (
 						<Rater client:load text={kink} />
 					))}
 				</div>
