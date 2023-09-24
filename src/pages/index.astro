@@ -1,7 +1,7 @@
 ---
 import { BaseLayout } from "cmdesigns";
 import Rater from "../components/Rater";
-import { kinks, ratingColors, ratingNames } from "../base";
+import { kinks, ratingNames } from "../base";
 import favicon from "../favicon.png";
 import { version } from "../../package.json";
 ---
@@ -11,23 +11,34 @@ import { version } from "../../package.json";
 		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
 		{
 			[...ratingNames.keys()].map((i) => (
-				<div class="rater noclick">
-					<button style={"background-color:" + ratingColors[i]} />
-					{ratingNames[i]}
-				</div>
+				<Rater
+					text={ratingNames[i]}
+					initialRating={i}
+					className="rater noclick"
+				/>
 			))
 		}
 	</header>
-	<!-- TODO: some explainations, especially of how the kinks should be interpreted -->
-	<!-- TODO: show positions -->
+	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
 	<main>
 		{
 			Object.entries(kinks).map(([cat, kinks]) => (
 				<div>
 					<h2>{cat}</h2>
-					{kinks.map(([kink, _positions]) => (
-						<Rater client:load text={kink} />
-					))}
+					<table border="1" rules="rows">
+						<tbody>
+							{kinks.map(([kink, positions]) => (
+								<tr>
+									<td>{kink}</td>
+									{positions.map((pos) => (
+										<td>
+											<Rater client:load text={pos} />
+										</td>
+									))}
+								</tr>
+							))}
+						</tbody>
+					</table>
 				</div>
 			))
 		}
@@ -35,11 +46,25 @@ import { version } from "../../package.json";
 </BaseLayout>
 
 <style is:global>
+	body {
+		margin: 12px;
+		width: calc(max(180ch, 100% - 24px));
+	}
+	table {
+		border-color: #303030;
+	}
+	td {
+		padding-left: 8px;
+	}
 	h1 {
 		margin: 0;
 	}
 	.h2thing {
 		font-size: 0.75em;
+	}
+	h2 {
+		margin-bottom: 0.25em;
+		margin-top: 0.375em;
 	}
 	header {
 		display: grid;
@@ -52,11 +77,10 @@ import { version } from "../../package.json";
 		grid-template-rows: auto;
 		grid-template-columns: auto auto auto;
 	}
-	h2 {
-		margin-bottom: 0.25em;
+	.rater, table {
+		font-size: 16pt;
 	}
 	.rater {
-		font-size: 16pt;
 		padding-bottom: 2px;
 		cursor: pointer;
 		-webkit-user-select: none;
