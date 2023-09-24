@@ -1,7 +1,8 @@
 import { extraRatingColor, ratingColors } from "../base";
 import { useState } from "preact/hooks";
 
-export default function Rater({ text, initialRating }: { text: string, initialRating?: number }) {
+export default function Rater({ text, initialRating, className }:
+    { text: string, initialRating?: number, className?: string }) {
     const [rating, setRating] = useState(initialRating ?? 0);
     const handleClick = (e: MouseEvent) => {
         e.preventDefault();
@@ -11,7 +12,7 @@ export default function Rater({ text, initialRating }: { text: string, initialRa
         setRating(newRating > max ? 0 : newRating < 0 ? max : newRating);
     };
     return (
-        <div class="rater" onClick={handleClick} onContextMenu={handleClick}>
+        <div class={className ?? "rater"} onClick={handleClick} onContextMenu={handleClick}>
             <button style={"background-color:" + extraRatingColor(rating)} />
             {text}
         </div>
