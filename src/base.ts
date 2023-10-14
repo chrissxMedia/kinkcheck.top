@@ -16,12 +16,12 @@ export const ratingColors = [
     "#202020",
 ];
 
-function splitColor(hex: string) {
+function splitColor(hex: string): [number, number, number] {
     const c = hex.substring(1).match(/.{2}/g)!;
     return [parseInt(c[0], 16), parseInt(c[1], 16), parseInt(c[2], 16)];
 }
 
-function mixColors(a: number[], b: number[]) {
+function mixColors(a: [number, number, number], b: [number, number, number]): number[] {
     return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2].map(Math.round);
 }
 
@@ -103,7 +103,7 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Roleplay", [""]],
         ["Ageplay", [""]],
         ["Cheating/Cuckold/NTR", ["dom", "sub"]],
-        ["Feminization", ["dom", "sub"]],
+        ["Feminization/Sissy", ["dom", "sub"]],
         ["Voyeur/Watching", [""]],
         ["Double-Penetration", ["top", "bottom"]],
         ["Multi-Partner", ["top", "bottom"]],
@@ -139,7 +139,8 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Forced Dressup", ["dom", "sub"]],
         ["Leather", [""]],
         ["Socks", [""]],
-        ["Uniforms/Cosplay", [""]],
+        ["Uniforms", [""]],
+        ["Cosplay", [""]],
     ],
     "Extreme": [
         ["Scat", [""]],
