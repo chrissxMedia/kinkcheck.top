@@ -1,0 +1,35 @@
+---
+import LyricBadge from "../components/LyricBadge.astro";
+import { transbianLines } from "../base";
+import Layout from "../layouts/Layout.astro";
+import { version } from "../../package.json";
+---
+
+<Layout title="Trans Lesbian Badges | KinkCheck">
+    <header>
+        <h1><a href="/">KinkCheck</a> v{version} Trans Lesbian Badges</h1>
+    </header>
+    <main>
+        {
+            transbianLines.map((x) => (
+                <LyricBadge line={x[0]} description={x[1]} />
+            ))
+        }
+    </main>
+</Layout>
+
+<style>
+    h1 {
+        margin: 0;
+    }
+    main {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 30ch);
+        gap: 5ch;
+        margin: 5ch;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+</style>

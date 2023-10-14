@@ -1,3 +1,5 @@
+import { atom } from "nanostores";
+
 export const ratingNames = [
     "i dont know",
     "favorite (love it)",
@@ -156,3 +158,30 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Genital Mutilation", ["give", "receive"]],
     ],
 };
+
+export const transbianLines: [string, string][] = [
+    ["Snortin' lines of progesterone", "has taken prog"],
+    ["More alpha than you, bitch, where my testosterone", "has t levels below 100 ng/dL"],
+    ["I cyber-dommed a bitch and she told me \"thank you!\"", "dommed someone online (and they thanked)"],
+    ["She sent me a picture of her pussy like Britney Spears", "received a picture of someone's pussy"],
+    ["She asked me where I'm at, look, bitch, I am almost here!", "been eagerly awaited for sexual reasons"],
+    ["I'm smoking fat blunts, I look like Fidel Castro", "regularly smokes weed"],
+    ["I'm a femboy so my Glock got a girldick", "owns a gun"],
+    ["Internally drowned a femboy, he drank too much from nursing", "nursed someone"],
+    ["I'm with a bad bitch shootin' clips for /r/lesdom", "recorded porn"],
+    ["I don't own a kingdom, I just do my femdom", "dommed (irl)"],
+    ["I'm at the Taco Bell dropping lean in my Baja Blast", "taken codeine"],
+    ["I'm shootin' at her feet", "came on someone's feet"],
+    ["My Glock is just like me, 'cause it also got a big cock!", "has a cock ≥ 18cm (7in)"],
+    ["I'm sexting a cute top and she's making me keysmash", "keysmashed"],
+    ["Put it to his lips like it's beeswax", "came on someone's lips"],
+    ["I cannot associate with you, you're not a sex haver", "has sex regularly"],
+    ["Femme sub bitch, so she use me like a sex toy", "been someone's \"sex toy\""],
+    ["This bitch that I'm sexting just called me her princess", "been called \"princess\""],
+    ["I call her Corpsegrinder 'cause she give me that good neck", "gotten head"],
+    ["She tryna grab my girlcock, I told her \"bitch, settle down!\"", "had to slow someone down sexually"],
+    ["Put a Glock to his forehead, now he got a metal crown", "pulled a gun on someone"],
+];
+
+export const topBottomValue = atom(0.5);
+export const sexualValue = atom(0.5);

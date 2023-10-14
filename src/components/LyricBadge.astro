@@ -1,0 +1,55 @@
+---
+export interface Props {
+    line: string;
+    description: string;
+}
+
+const { line, description } = Astro.props;
+---
+
+<div class="self">
+    <div class="quote">
+        <p>“</p>
+        <blockquote>
+            {line}
+        </blockquote>
+    </div>
+    <cite>
+        {description}
+    </cite>
+</div>
+
+<style>
+    div.self {
+        width: 30ch;
+        height: 20ch;
+        background-image: url(/tlflag.svg);
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    div.quote {
+        margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+    }
+    p {
+        margin-left: 0.5ch;
+        font-size: 2.5ch;
+    }
+    blockquote {
+        color: black;
+        background: white;
+        margin-left: 0.25ch;
+        margin-right: 2ch;
+        margin-top: 2ch;
+        margin-bottom: auto;
+        padding: 0.5ch;
+    }
+    cite {
+        margin-left: 4ch;
+        margin-right: 0.5ch;
+        margin-bottom: 0.25ch;
+        text-align: end;
+    }
+</style>

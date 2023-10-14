@@ -11,6 +11,7 @@ const { title } = Astro.props;
 
 <BaseLayout lang="en" copyrightstart="2023" {title} {favicon}>
     <slot />
+    <nav slot="footer"><a href="/tlcc">Trans Lesbian Badges</a></nav>
 </BaseLayout>
 
 <style is:global>
