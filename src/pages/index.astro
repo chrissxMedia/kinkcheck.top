@@ -1,12 +1,11 @@
 ---
-import { BaseLayout } from "cmdesigns";
+import Layout from "../layouts/Layout.astro";
 import Rater from "../components/Rater";
 import { kinks, ratingNames } from "../base";
-import favicon from "../favicon.png";
 import { version } from "../../package.json";
 ---
 
-<BaseLayout lang="en" copyrightstart="2023" title="KinkCheck" {favicon}>
+<Layout title="KinkCheck">
 	<header>
 		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
 		{
@@ -43,13 +42,9 @@ import { version } from "../../package.json";
 			))
 		}
 	</main>
-</BaseLayout>
+</Layout>
 
 <style is:global>
-	body {
-		margin: 12px;
-		width: calc(max(180ch, 100% - 24px));
-	}
 	table {
 		border-color: #303030;
 	}
@@ -77,7 +72,8 @@ import { version } from "../../package.json";
 		grid-template-rows: auto;
 		grid-template-columns: auto auto auto;
 	}
-	.rater, table {
+	.rater,
+	table {
 		font-size: 16pt;
 	}
 	.rater {

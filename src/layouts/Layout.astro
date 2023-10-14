@@ -1,0 +1,21 @@
+---
+import { BaseLayout } from "cmdesigns";
+import favicon from "../favicon.png";
+
+export interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<BaseLayout lang="en" copyrightstart="2023" {title} {favicon}>
+    <slot />
+</BaseLayout>
+
+<style is:global>
+    body {
+        margin: 12px;
+        width: calc(max(180ch, 100% - 24px));
+    }
+</style>
