@@ -42,9 +42,15 @@ import { version } from "../../package.json";
 			))
 		}
 	</main>
+	<script>
+		window.onbeforeunload = () => true;
+	</script>
 </Layout>
 
 <style is:global>
+	body {
+		width: calc(max(180ch, 100% - 24px));
+	}
 	table {
 		border-color: #303030;
 	}
