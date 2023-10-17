@@ -35,14 +35,15 @@ export function extraRatingColor(i: number) {
     return `#${c[0].toString(16)}${c[1].toString(16)}${c[2].toString(16)}`;
 }
 
-type positions = ["give", "receive"] | ["top", "bottom"] | ["dom", "sub"] | [""];
+type positions = [string, string] | [""];
+// TODO: info texts
 type kink = [string, positions];
 type kl = kink[];
 
 export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, Extreme: kl } = {
     "General": [
-        ["Fellatio/Blowjobs", ["give", "receive"]],
-        ["Cunnilingus", ["give", "receive"]],
+        ["Fellatio/Blowjobs", ["receive", "give"]],
+        ["Cunnilingus", ["receive", "give"]],
         ["Face-Fucking", ["give", "receive"]],
         ["Face-Sitting", ["top", "bottom"]],
         ["Handjobs", ["give", "receive"]],
@@ -55,10 +56,12 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Masturbation", [""]],
         ["Anal Sex", ["top", "bottom"]],
         ["Anal Fingering", ["top", "bottom"]],
+        // TODO: clarify/assign positions
         ["Anal Masturbation", [""]],
         ["Anal Fisting", ["top", "bottom"]],
         ["Pegging", ["top", "bottom"]],
         ["Anilingus/Rimming", ["top", "bottom"]],
+        // TODO: clarify or consider throwing these out
         ["Toys", [""]],
         ["Anal Toys", [""]],
     ],
@@ -74,10 +77,12 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Bondage", ["dom", "sub"]],
         ["Encasement/Cages", ["dom", "sub"]],
         ["Discipline", ["dom", "sub"]],
+        // TODO: consider splitting?
         ["Public Sex/Exhibition", [""]],
-        ["Rape", ["top", "bottom"]],
+        ["Rape/CNC", ["top", "bottom"]],
         ["Kidnapping", ["dom", "sub"]],
         ["Spanking", ["give", "receive"]],
+        // TODO: give/receive?
         ["Forced Orgasms", ["dom", "sub"]],
         ["Orgasm Denial", ["dom", "sub"]],
         ["Chastity", ["dom", "sub"]],
@@ -95,27 +100,32 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Body Worship", ["dom", "sub"]],
     ],
     "Kinks": [
-        ["Incest - Cousins", [""]],
-        ["Incest - Siblings", [""]],
-        ["Incest - Parents", [""]],
-        ["Incest - Children (Any age)", [""]],
+        ["Incest", ["cousins", "siblings"]],
+        ["Incest (any age)", ["parents", "children"]],
         ["Impregnation/Pregnancy", ["top", "bottom"]],
+        // TODO: rename big time
         ["Milking", ["dom", "sub"]],
         ["Nursing", ["dom", "sub"]],
         ["Feet", [""]],
+        // TODO: consider positions
         ["Pee", [""]],
         ["Roleplay", [""]],
+        // TODO: is this distinct from little/daddy*mommy
         ["Ageplay", [""]],
         ["Cheating/Cuckold/NTR", ["dom", "sub"]],
         ["Feminization/Sissy", ["dom", "sub"]],
+        // TODO: merge with exhibition
         ["Voyeur/Watching", [""]],
         ["Double-Penetration", ["top", "bottom"]],
+        // TODO: reconsider
         ["Multi-Partner", ["top", "bottom"]],
+        // TODO: does this belong here? idk
         ["Furry-Roleplay", [""]],
         ["Tickling", ["dom", "sub"]],
         ["Cumswapping", [""]],
         ["Thighsex", ["top", "bottom"]],
         ["Titfuck", ["top", "bottom"]],
+        // TODO: is there a top/bottom distinction?
         ["Footjob", ["give", "receive"]],
         ["Armpit Sex", ["top", "bottom"]],
     ],
