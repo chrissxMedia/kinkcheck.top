@@ -5,7 +5,7 @@ import { kinks, ratingNames } from "../base";
 import { version } from "../../package.json";
 ---
 
-<Layout title="KinkCheck">
+<Layout title={`KinkCheck v${version}`}>
 	<header>
 		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
 		{
@@ -49,7 +49,7 @@ import { version } from "../../package.json";
 
 <style is:global>
 	body {
-		width: calc(max(180ch, 100% - 24px));
+		width: calc(max(180ch, 100%));
 	}
 	table {
 		border-color: #303030;

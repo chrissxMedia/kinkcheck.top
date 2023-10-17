@@ -9,16 +9,61 @@ export interface Props {
 const { title } = Astro.props;
 ---
 
-<BaseLayout lang="en" copyrightstart="2023" {title} {favicon}>
-    <slot />
-    <nav slot="footer"><a href="/tlcc">Trans Lesbian Badges</a></nav>
+<BaseLayout
+    lang="en"
+    copyrightstart={2023}
+    repo="https://github.com/chrissxMedia/kinkcheck.top"
+    {title}
+    {favicon}
+>
+    <div id="content">
+        <slot />
+    </div>
+    <nav slot="footer">
+        <a href="/tlcc">Trans Lesbian Badges</a>
+        <a id="screenshot" download={`Screenshot of ${title}.png`}>
+            Take a Screenshot
+        </a>
+    </nav>
+    <script>
+        import html2canvas from "html2canvas";
+        const scnsh = document.getElementById("screenshot")!;
+        scnsh.onclick = () =>
+            html2canvas(document.getElementById("content")!, {
+                backgroundColor: "black",
+            }).then((canvas) => {
+                console.log(canvas);
+                scnsh.setAttribute(
+                    "href",
+                    canvas
+                        .toDataURL("image/png")
+                        .replace("image/png", "image/octet-stream"),
+                );
+                const handler = scnsh.onclick;
+                scnsh.onclick = () => {};
+                scnsh.click();
+                scnsh.onclick = handler;
+                scnsh.removeAttribute("href");
+            });
+    </script>
 </BaseLayout>
 
 <style is:global>
     body {
-        margin: 12px;
+        margin: 0;
     }
-    a, :visited {
+    div#content {
+        padding: 12px;
+    }
+    nav {
+        display: flex;
+        column-gap: 1ch;
+        justify-content: center;
+    }
+    a,
+    :visited {
         color: #c0c0c0;
+        text-decoration: underline;
+        cursor: pointer;
     }
 </style>
