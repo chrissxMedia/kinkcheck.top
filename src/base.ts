@@ -1,10 +1,12 @@
 import { atom } from "nanostores";
 
+// TODO: try to unify these 2
+
 export const ratingNames = [
     "i dont know",
-    "favorite (love it)",
-    "yes (want to try/do)",
-    "maybe (could be convinced)",
+    "favorite, love it",
+    "want to try/do",
+    "could be convinced",
     "not interested",
     "hard limit",
 ];
