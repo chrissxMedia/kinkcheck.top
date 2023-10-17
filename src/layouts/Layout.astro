@@ -21,9 +21,7 @@ const { title } = Astro.props;
     </div>
     <nav slot="footer">
         <a href="/tlcc">Trans Lesbian Badges</a>
-        <a id="screenshot" download={`Screenshot of ${title}.png`}>
-            Take a Screenshot
-        </a>
+        <a id="screenshot" download={`${title}.png`}>Take a Screenshot</a>
     </nav>
     <script>
         import html2canvas from "html2canvas";
@@ -31,6 +29,8 @@ const { title } = Astro.props;
         scnsh.onclick = () =>
             html2canvas(document.getElementById("content")!, {
                 backgroundColor: "black",
+                windowWidth: 1440,
+                scale: 2,
             }).then((canvas) => {
                 console.log(canvas);
                 scnsh.setAttribute(
