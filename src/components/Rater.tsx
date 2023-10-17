@@ -10,6 +10,7 @@ export default function Rater({ text, initialRating, className }:
         const newRating = e.button ? rating - step : rating + step;
         const max = ratingColors.length - 1;
         setRating(newRating > max ? 0 : newRating < 0 ? max : newRating);
+        window.onbeforeunload = () => true;
     };
     return (
         <div class={className ?? "rater"} onClick={handleClick} onContextMenu={handleClick}>
