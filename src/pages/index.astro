@@ -19,12 +19,13 @@ import { version } from "../../package.json";
 		}
 	</header>
 	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
+	<!-- TODO: add a name field -->
 	<main>
 		{
 			Object.entries(kinks).map(([cat, kinks]) => (
 				<div>
 					<h2>{cat}</h2>
-					<table border="1" rules="rows">
+					<table rules="rows">
 						<tbody>
 							{kinks.map(([kink, positions]) => (
 								<tr>
@@ -49,7 +50,7 @@ import { version } from "../../package.json";
 		width: calc(max(180ch, 100%));
 	}
 	table {
-		border-color: #303030;
+		border: 1px solid #303030;
 	}
 	td {
 		padding-left: 8px;
