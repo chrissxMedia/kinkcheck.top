@@ -53,17 +53,14 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Creampie", ["give", "receive"]],
         ["Swallowing", ["top", "bottom"]],
         ["Facials", ["give", "receive"]],
+        // TODO: you can be top/bottom when masturbating...
         ["Masturbation", [""]],
+        ["Anal Masturbation", [""]],
         ["Anal Sex", ["top", "bottom"]],
         ["Anal Fingering", ["top", "bottom"]],
-        // TODO: clarify/assign positions
-        ["Anal Masturbation", [""]],
         ["Anal Fisting", ["top", "bottom"]],
         ["Pegging", ["top", "bottom"]],
         ["Anilingus/Rimming", ["top", "bottom"]],
-        // TODO: clarify or consider throwing these out
-        ["Toys", [""]],
-        ["Anal Toys", [""]],
     ],
     "BDSM": [
         ["Little/Daddy*Mommy", ["dom", "sub"]],
@@ -77,8 +74,6 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Bondage", ["dom", "sub"]],
         ["Encasement/Cages", ["dom", "sub"]],
         ["Discipline", ["dom", "sub"]],
-        // TODO: consider splitting?
-        ["Public Sex/Exhibition", [""]],
         ["Rape/CNC", ["top", "bottom"]],
         ["Kidnapping", ["dom", "sub"]],
         ["Spanking", ["give", "receive"]],
@@ -96,8 +91,7 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Begging", ["dom", "sub"]],
         ["Teasing", ["dom", "sub"]],
         ["Sounding/Urethral Insertion", ["dom", "sub"]],
-        ["Genital Worship", ["dom", "sub"]],
-        ["Body Worship", ["dom", "sub"]],
+        ["Worship", ["dom", "sub"]],
     ],
     "Kinks": [
         ["Incest", ["cousins", "siblings"]],
@@ -107,25 +101,22 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Milking", ["dom", "sub"]],
         ["Nursing", ["dom", "sub"]],
         ["Feet", [""]],
-        // TODO: consider positions
-        ["Pee", [""]],
+        ["Pee", ["dom", "sub"]],
         ["Roleplay", [""]],
-        // TODO: is this distinct from little/daddy*mommy
+        // TODO: is this distinct from little/daddy*mommy?
         ["Ageplay", [""]],
+        // TODO: ABDL? positions?
+        ["Diapers", [""]],
         ["Cheating/Cuckold/NTR", ["dom", "sub"]],
         ["Feminization/Sissy", ["dom", "sub"]],
-        // TODO: merge with exhibition
-        ["Voyeur/Watching", [""]],
+        ["Exhibition/Voyeur", ["exhib", "voyeur"]],
         ["Double-Penetration", ["top", "bottom"]],
-        // TODO: reconsider
         ["Multi-Partner", ["top", "bottom"]],
-        // TODO: does this belong here? idk
-        ["Furry-Roleplay", [""]],
         ["Tickling", ["dom", "sub"]],
+        // TODO: give/receive?
         ["Cumswapping", [""]],
         ["Thighsex", ["top", "bottom"]],
         ["Titfuck", ["top", "bottom"]],
-        // TODO: is there a top/bottom distinction?
         ["Footjob", ["give", "receive"]],
         ["Armpit Sex", ["top", "bottom"]],
     ],
@@ -155,6 +146,7 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Socks", [""]],
         ["Uniforms", [""]],
         ["Cosplay", [""]],
+        ["Furry", [""]],
     ],
     "Extreme": [
         ["Scat", [""]],
