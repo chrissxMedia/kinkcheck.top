@@ -1,0 +1,22 @@
+---
+import { version } from "../../package.json";
+---
+
+<h1>
+    <a href="/">
+        KinkCheck<span class="h2thing">.Top v{version}</span>
+    </a><slot />
+</h1>
+
+<style>
+    h1 {
+        margin: 0;
+    }
+    .h2thing {
+        font-size: 24px;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+    }
+</style>

@@ -2,12 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import Rater from "../components/Rater";
 import { kinks, ratingNames } from "../base";
-import { version } from "../../package.json";
+import HeaderLogo from "../components/HeaderLogo.astro";
 ---
 
-<Layout title={`KinkCheck v${version}`}>
+<Layout>
 	<header>
-		<h1>KinkCheck<span class="h2thing">.Top v{version}</span></h1>
+		<HeaderLogo />
 		{
 			[...ratingNames.keys()].map((i) => (
 				<Rater
@@ -55,15 +55,9 @@ import { version } from "../../package.json";
 	td {
 		padding-left: 8px;
 	}
-	h1 {
-		margin: 0;
-	}
-	.h2thing {
-		font-size: 0.75em;
-	}
 	h2 {
-		margin-bottom: 0.25em;
-		margin-top: 0.375em;
+		margin-bottom: 6px;
+		margin-top: 9px;
 	}
 	header {
 		display: grid;

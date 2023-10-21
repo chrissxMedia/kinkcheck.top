@@ -2,13 +2,11 @@
 import LyricBadge from "../components/LyricBadge.astro";
 import { transbianLines } from "../base";
 import Layout from "../layouts/Layout.astro";
-import { version } from "../../package.json";
+import HeaderLogo from "../components/HeaderLogo.astro";
 ---
 
-<Layout title="Trans Lesbian Badges | KinkCheck">
-    <header>
-        <h1><a href="/">KinkCheck</a> v{version} Trans Lesbian Badges</h1>
-    </header>
+<Layout title="Trans Lesbian Badges">
+    <header><HeaderLogo>&nbsp;Trans Lesbian Badges</HeaderLogo></header>
     <main>
         {
             transbianLines.map((x) => (
@@ -19,17 +17,10 @@ import { version } from "../../package.json";
 </Layout>
 
 <style>
-    h1 {
-        margin: 0;
-    }
     main {
         display: grid;
         grid-template-columns: repeat(auto-fill, 30ch);
         gap: 5ch;
         margin: 5ch;
-    }
-    a {
-        color: white;
-        text-decoration: none;
     }
 </style>
