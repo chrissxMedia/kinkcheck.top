@@ -1,12 +1,15 @@
 ---
 import { BaseLayout } from "cmdesigns";
 import favicon from "../favicon.png";
+import { version } from "../../package.json";
 
 export interface Props {
-    title: string;
+    title?: string;
 }
 
-const { title } = Astro.props;
+const kc = `KinkCheck v${version}`
+let { title = kc } = Astro.props;
+if(!title.includes(kc)) title += " | " + kc;
 ---
 
 <BaseLayout
