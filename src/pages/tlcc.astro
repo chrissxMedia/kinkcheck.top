@@ -7,6 +7,11 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 
 <Layout title="Trans Lesbian Badges">
     <header><HeaderLogo>&nbsp;Trans Lesbian Badges</HeaderLogo></header>
+    <iframe
+        scrolling="no"
+        frameborder="no"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/782840377&color=%23ff5500&auto_play=false&hide_related=true"
+    ></iframe>
     <main>
         {
             transbianLines.map((x) => (
@@ -17,6 +22,11 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 </Layout>
 
 <style>
+    iframe {
+        width: calc(min(100% - 10ch, 1000px));
+        height: 166px;
+        margin: 5ch;
+    }
     main {
         display: grid;
         grid-template-columns: repeat(auto-fill, 30ch);
