@@ -1,0 +1,23 @@
+---
+import FlagGenerator from "../components/FlagGenerator";
+import HeaderLogo from "../components/HeaderLogo.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Flag Generator">
+    <header><HeaderLogo>&nbsp;Flag Generator</HeaderLogo></header>
+    <FlagGenerator client:load />
+</Layout>
+
+<style is:global>
+    div#content {
+        width: max-content;
+    }
+    input {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 16pt;
+        background-color: rgb(var(--cmblack));
+        color: white;
+    }
+</style>
