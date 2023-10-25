@@ -2,12 +2,13 @@
 import { BaseLayout } from "cmdesigns";
 import favicon from "../favicon.png";
 import { version } from "../../package.json";
+import ScreenshotButton from "../components/ScreenshotButton";
 
 export interface Props {
     title?: string;
 }
 
-const kc = `KinkCheck v${version}`
+const kc = `KinkCheck.Top v${version}`
 let { title = kc } = Astro.props;
 if(!title.includes(kc)) title += " | " + kc;
 ---
@@ -25,31 +26,8 @@ if(!title.includes(kc)) title += " | " + kc;
     <nav slot="footer">
         <a href="/tlcc">Trans Lesbian Badges</a>
         <a href="/flag">Flag Generator</a>
-        <a id="screenshot" download={`${title}.png`}>Take a Screenshot</a>
+        <ScreenshotButton title={title} client:load />
     </nav>
-    <script>
-        import html2canvas from "html2canvas";
-        const scnsh = document.getElementById("screenshot")!;
-        scnsh.onclick = () =>
-            html2canvas(document.getElementById("content")!, {
-                backgroundColor: "black",
-                windowWidth: 1440,
-                scale: 2,
-            }).then((canvas) => {
-                console.log(canvas);
-                scnsh.setAttribute(
-                    "href",
-                    canvas
-                        .toDataURL("image/png")
-                        .replace("image/png", "image/octet-stream"),
-                );
-                const handler = scnsh.onclick;
-                scnsh.onclick = () => {};
-                scnsh.click();
-                scnsh.onclick = handler;
-                scnsh.removeAttribute("href");
-            });
-    </script>
 </BaseLayout>
 
 <style is:global>
