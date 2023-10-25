@@ -43,7 +43,7 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 
 <style is:global>
 	body {
-		width: calc(max(174ch, 100%));
+		width: calc(max(1440px, 100%));
 	}
 	table {
 		border: 1px solid #303030;
@@ -58,13 +58,13 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 	header {
 		display: grid;
 		grid-template-rows: auto;
-		grid-template-columns: auto auto auto auto auto auto auto;
+		grid-template-columns: repeat(7, auto);
 		align-items: center;
 	}
 	main {
 		display: grid;
 		grid-template-rows: auto;
-		grid-template-columns: auto auto auto;
+		grid-template-columns: repeat(3, auto);
 	}
 	.rater,
 	table {
