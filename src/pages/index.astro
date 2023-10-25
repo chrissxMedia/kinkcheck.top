@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Rater from "../components/Rater";
-import { kinks, ratingNames } from "../base";
+import { kinks, ratings } from "../base";
 import HeaderLogo from "../components/HeaderLogo.astro";
 ---
 
@@ -9,12 +9,8 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 	<header>
 		<HeaderLogo />
 		{
-			[...ratingNames.keys()].map((i) => (
-				<Rater
-					text={ratingNames[i]}
-					initialRating={i}
-					className="rater noclick"
-				/>
+			ratings.map(([n], i) => (
+				<Rater text={n} initialRating={i} className="rater noclick" />
 			))
 		}
 	</header>
@@ -47,7 +43,7 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 
 <style is:global>
 	body {
-		width: calc(max(180ch, 100%));
+		width: calc(max(174ch, 100%));
 	}
 	table {
 		border: 1px solid #303030;

@@ -1,23 +1,12 @@
 import { atom } from "nanostores";
 
-// TODO: try to unify these 2
-
-export const ratingNames = [
-    "i dont know",
-    "favorite, love it",
-    "want to try/do",
-    "could be convinced",
-    "not interested",
-    "hard limit",
-];
-
-export const ratingColors = [
-    "#808080",
-    "#21eee0",
-    "#0eb620",
-    "#eeef29",
-    "#c81c11",
-    "#202020",
+export const ratings: [string, string][] = [
+    ["i dont know", "#808080"],
+    ["favorite", "#21eee0"],
+    ["want to do", "#0eb620"],
+    ["could be convinced", "#eeef29"],
+    ["not interested", "#c81c11"],
+    ["hard limit", "#202020"],
 ];
 
 function splitColor(hex: string): [number, number, number] {
@@ -29,9 +18,9 @@ function mixColors(a: [number, number, number], b: [number, number, number]): nu
     return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2].map(Math.round);
 }
 
-export function extraRatingColor(i: number) {
-    if (i % 1 == 0) return ratingColors[i];
-    const c = mixColors(splitColor(ratingColors[i - 0.5]), splitColor(ratingColors[i + 0.5]));
+export function ratingColor(i: number): string {
+    if (i % 1 == 0) return ratings[i][1];
+    const c = mixColors(splitColor(ratings[i - 0.5][1]), splitColor(ratings[i + 0.5][1]));
     return `#${c[0].toString(16)}${c[1].toString(16)}${c[2].toString(16)}`;
 }
 
