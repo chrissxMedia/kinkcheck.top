@@ -6,11 +6,13 @@ export default function Rater({ text, initialRating, className }:
     const [rating, setRating] = useState(initialRating ?? 0);
     const handleClick = (e: MouseEvent) => {
         e.preventDefault();
-        // FIXME: there shouldnt be a step between i dont know and fav
         const step = e.shiftKey || e.altKey ? 0.5 : 1;
-        const newRating = e.button ? rating - step : rating + step;
+        let newRating = e.button ? rating - step : rating + step;
         const max = ratings.length - 1;
-        setRating(newRating > max ? 0 : newRating < 0 ? max : newRating);
+        if (newRating === 0.5) newRating = e.button ? 0 : 1;
+        else if (newRating > max) newRating = 0;
+        else if (newRating < 0) newRating = max;
+        setRating(newRating);
         window.onbeforeunload = () => true;
     };
     return (
