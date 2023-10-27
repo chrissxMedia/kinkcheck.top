@@ -19,7 +19,7 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 	<main>
 		{
 			Object.entries(kinks).map(([cat, kinks]) => (
-				<div>
+				<div class="category">
 					<h2>{cat}</h2>
 					<table rules="rows">
 						<tbody>
@@ -31,6 +31,9 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 											<Rater client:load text={pos} />
 										</td>
 									))}
+									{positions.length === 1 ? (
+										<td />
+									) : undefined}
 								</tr>
 							))}
 						</tbody>
