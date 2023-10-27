@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Rater from "../components/Rater";
-import { kinks, ratings } from "../base";
+import { ratings } from "../base";
 import HeaderLogo from "../components/HeaderLogo.astro";
+import KinkCheck from "../components/KinkCheck";
 ---
 
 <Layout>
@@ -16,32 +17,7 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 	</header>
 	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
 	<!-- TODO: add a name field -->
-	<main>
-		{
-			Object.entries(kinks).map(([cat, kinks]) => (
-				<div class="category">
-					<h2>{cat}</h2>
-					<table rules="rows">
-						<tbody>
-							{kinks.map(([kink, positions]) => (
-								<tr>
-									<td>{kink}</td>
-									{positions.map((pos) => (
-										<td>
-											<Rater client:load text={pos} />
-										</td>
-									))}
-									{positions.length === 1 ? (
-										<td />
-									) : undefined}
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-			))
-		}
-	</main>
+	<KinkCheck client:load />
 </Layout>
 
 <style is:global>
