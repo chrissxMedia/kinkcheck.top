@@ -29,7 +29,7 @@ type positions = [string, string] | [""];
 type kink = [string, positions];
 type kl = kink[];
 
-export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, Extreme: kl } = {
+export const kinks: { [k: string]: kl } = {
     "General": [
         ["Fellatio/Blowjobs", ["receive", "give"]],
         ["Cunnilingus", ["receive", "give"]],
@@ -151,6 +151,12 @@ export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, 
         ["Genital Mutilation", ["give", "receive"]],
     ],
 };
+
+export type ratings = { [k: string]: number[][] };
+export const defaultRatings: ratings = Object.fromEntries(
+    Object.entries(kinks).map<[string, number[][]]>(
+        ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => 0))])
+);
 
 export const transbianLines: [string, string][] = [
     ["Snortin' lines of progesterone", "has taken prog"],

@@ -1,10 +1,9 @@
 import { ratingColor, ratings } from "../base";
-import { useState } from "preact/hooks";
 
-export default function Rater({ text, initialRating, className }:
-    { text: string, initialRating?: number, className?: string }) {
-    const [rating, setRating] = useState(initialRating ?? 0);
+export default function Rater({ text, rating, setRating, className }:
+    { text: string, rating: number, setRating?: (r: number) => void, className?: string }) {
     const handleClick = (e: MouseEvent) => {
+        if(!setRating) return;
         e.preventDefault();
         const step = e.shiftKey || e.altKey ? 0.5 : 1;
         let newRating = e.button ? rating - step : rating + step;

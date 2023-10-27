@@ -12,11 +12,7 @@ import KinkCheck from "../components/KinkCheck";
 		<div class="ratings">
 			{
 				ratings.map(([n], i) => (
-					<Rater
-						text={n}
-						initialRating={i}
-						className="rater noclick"
-					/>
+					<Rater text={n} rating={i} className="rater noclick" />
 				))
 			}
 		</div>
