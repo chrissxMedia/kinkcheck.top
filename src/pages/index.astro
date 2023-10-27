@@ -9,11 +9,17 @@ import KinkCheck from "../components/KinkCheck";
 <Layout>
 	<header>
 		<HeaderLogo />
-		{
-			ratings.map(([n], i) => (
-				<Rater text={n} initialRating={i} className="rater noclick" />
-			))
-		}
+		<div class="ratings">
+			{
+				ratings.map(([n], i) => (
+					<Rater
+						text={n}
+						initialRating={i}
+						className="rater noclick"
+					/>
+				))
+			}
+		</div>
 	</header>
 	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
 	<!-- TODO: add a name field -->
@@ -21,9 +27,6 @@ import KinkCheck from "../components/KinkCheck";
 </Layout>
 
 <style is:global>
-	body {
-		width: calc(max(1440px, 100%));
-	}
 	table {
 		border: 1px solid #303030;
 	}
@@ -34,16 +37,29 @@ import KinkCheck from "../components/KinkCheck";
 		margin-bottom: 6px;
 		margin-top: 9px;
 	}
+	h1 {
+		width: 20ch;
+	}
 	header {
-		display: grid;
-		grid-template-rows: auto;
-		grid-template-columns: repeat(7, auto);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.ratings {
+		width: calc(600% / 7);
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
 		align-items: center;
 	}
 	main {
-		display: grid;
-		grid-template-rows: auto;
-		grid-template-columns: repeat(3, auto);
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+		column-gap: 2ch;
+	}
+	.category {
+		min-width: 28%;
 	}
 	.rater,
 	table {
