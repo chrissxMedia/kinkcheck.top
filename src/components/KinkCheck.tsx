@@ -16,19 +16,18 @@ export default function KinkCheck() {
             Object.entries(kinks).map(([cat, kinks]) => (
                 <div class="category">
                     <h2>{cat}</h2>
-                    <table rules="rows">
+                    <table>
                         <tbody>
                             {kinks.map(([kink, positions], i) => (
                                 <tr>
                                     <td>{kink}</td>
                                     {positions.map((pos, p) => (
                                         <td>
-                                            <Rater text={pos} rating={ratings[cat][i][p]} setRating={setRating(cat, i, p)} />
+                                            <Rater text={pos} rating={ratings[cat][i][p]}
+                                                setRating={setRating(cat, i, p)} />
                                         </td>
                                     ))}
-                                    {positions.length === 1 ? (
-                                        <td />
-                                    ) : undefined}
+                                    {positions.length === 1 ? <td /> : undefined}
                                 </tr>
                             ))}
                         </tbody>
