@@ -1,4 +1,4 @@
-import { atom } from "nanostores";
+import b64 from "base64-js";
 
 export const ratings: [string, string][] = [
     ["i dont know", "#808080"],
@@ -26,131 +26,161 @@ export function ratingColor(i: number): string {
 
 type positions = [string, string] | [""];
 // TODO: info texts
-type kink = [string, positions];
-type kl = kink[];
+type kink = [string, positions, number];
 
-export const kinks: { General: kl, BDSM: kl, Kinks: kl, Pain: kl, Clothing: kl, Extreme: kl } = {
+export const kinks: { [k: string]: kink[] } = {
     "General": [
-        ["Fellatio/Blowjobs", ["receive", "give"]],
-        ["Cunnilingus", ["receive", "give"]],
-        ["Face-Fucking", ["give", "receive"]],
-        ["Face-Sitting", ["top", "bottom"]],
-        ["Handjobs", ["give", "receive"]],
-        ["Fingering", ["give", "receive"]],
-        ["Fisting", ["give", "receive"]],
-        ["Rough Sex", [""]],
-        ["Creampie", ["give", "receive"]],
-        ["Swallowing", ["top", "bottom"]],
-        ["Facials", ["give", "receive"]],
-        // TODO: you can be top/bottom when masturbating...
-        ["Masturbation", [""]],
-        ["Anal Masturbation", [""]],
-        ["Anal Sex", ["top", "bottom"]],
-        ["Anal Fingering", ["top", "bottom"]],
-        ["Anal Fisting", ["top", "bottom"]],
-        ["Pegging", ["top", "bottom"]],
-        ["Anilingus/Rimming", ["top", "bottom"]],
+        ["Fellatio/Blowjobs", ["receive", "give"], 0],
+        ["Cunnilingus", ["receive", "give"], 1],
+        ["Face-Fucking", ["give", "receive"], 2],
+        ["Face-Sitting", ["top", "bottom"], 3],
+        ["Handjobs", ["give", "receive"], 4],
+        ["Fingering", ["give", "receive"], 5],
+        ["Fisting", ["give", "receive"], 6],
+        ["Rough Sex", [""], 7],
+        ["Creampie", ["give", "receive"], 8],
+        ["Swallowing", ["top", "bottom"], 9],
+        ["Facials", ["give", "receive"], 10],
+        ["Masturbation", ["top", "anal/…"], 11],
+        ["Anal Sex", ["top", "bottom"], 12],
+        ["Anal Fingering", ["top", "bottom"], 13],
+        ["Anal Fisting", ["top", "bottom"], 14],
+        ["Pegging", ["top", "bottom"], 15],
+        ["Anilingus/Rimming", ["top", "bottom"], 16],
     ],
     "BDSM": [
-        ["Little/Daddy*Mommy", ["dom", "sub"]],
-        ["Slave/Master*Mistress", ["dom", "sub"]],
-        ["Pet/Owner", ["dom", "sub"]],
-        ["Femdom", ["dom", "sub"]],
-        ["Maledom", ["dom", "sub"]],
-        ["Power Exchange", ["dom", "sub"]],
-        ["Humiliation/Embarrassment", ["dom", "sub"]],
-        ["Degradation/Name Calling", ["dom", "sub"]],
-        ["Bondage", ["dom", "sub"]],
-        ["Encasement/Cages", ["dom", "sub"]],
-        ["Discipline", ["dom", "sub"]],
-        ["Rape/CNC", ["top", "bottom"]],
-        ["Kidnapping", ["dom", "sub"]],
-        ["Spanking", ["give", "receive"]],
-        // TODO: give/receive?
-        ["Forced Orgasms", ["dom", "sub"]],
-        ["Orgasm Denial", ["dom", "sub"]],
-        ["Chastity", ["dom", "sub"]],
-        ["Masturbation Instructions", ["give", "receive"]],
-        ["Servitude", ["dom", "sub"]],
-        ["Sensation Play", ["dom", "sub"]],
-        ["Electric Stimulation", ["dom", "sub"]],
-        ["Breathing Play", ["dom", "sub"]],
-        ["Choking", ["dom", "sub"]],
-        ["Gags", ["dom", "sub"]],
-        ["Begging", ["dom", "sub"]],
-        ["Teasing", ["dom", "sub"]],
-        ["Sounding/Urethral Insertion", ["dom", "sub"]],
-        ["Worship", ["dom", "sub"]],
+        ["Little/Daddy*Mommy", ["dom", "sub"], 17],
+        ["Slave/Master*Mistress", ["dom", "sub"], 18],
+        ["Pet/Owner", ["dom", "sub"], 19],
+        ["Power Exchange (24/7)", ["dom", "sub"], 22],
+        ["Humiliation/Embarrassment", ["dom", "sub"], 23],
+        ["Degradation/Name Calling", ["dom", "sub"], 24],
+        ["Bondage", ["dom", "sub"], 25],
+        ["Encasement/Cages", ["dom", "sub"], 26],
+        ["Discipline", ["dom", "sub"], 27],
+        ["Rape/CNC", ["top", "bottom"], 28],
+        ["Kidnapping", ["dom", "sub"], 29],
+        ["Spanking", ["give", "receive"], 30],
+        ["Forced Orgasms", ["give", "receive"], 31],
+        ["Orgasm Denial", ["dom", "sub"], 32],
+        ["Chastity", ["dom", "sub"], 33],
+        ["Masturbation Instructions", ["give", "receive"], 34],
+        ["Servitude", ["dom", "sub"], 35],
+        ["Sensation Play", ["dom", "sub"], 36],
+        ["Electric Stimulation", ["dom", "sub"], 37],
+        ["Breathing Play", ["dom", "sub"], 38],
+        ["Choking", ["dom", "sub"], 39],
+        ["Gags", ["dom", "sub"], 40],
+        ["Begging", ["dom", "sub"], 41],
+        ["Teasing", ["dom", "sub"], 42],
+        ["Sounding/Urethral Insertion", ["dom", "sub"], 43],
+        ["Worship", ["dom", "sub"], 44],
     ],
     "Kinks": [
-        ["Incest", ["cousins", "siblings"]],
-        ["Incest (any age)", ["parents", "children"]],
-        ["Impregnation/Pregnancy", ["top", "bottom"]],
+        ["Incest", ["cousins", "siblings"], 45],
+        ["Incest (any age)", ["parents", "children"], 46],
+        ["Impregnation/Pregnancy", ["top", "bottom"], 47],
         // TODO: rename big time
-        ["Milking", ["dom", "sub"]],
-        ["Nursing", ["dom", "sub"]],
-        ["Feet", [""]],
-        ["Pee", ["dom", "sub"]],
-        ["Roleplay", [""]],
-        // TODO: is this distinct from little/daddy*mommy?
-        ["Ageplay", [""]],
-        // TODO: ABDL? positions?
-        ["Diapers", [""]],
-        ["Cheating/Cuckold/NTR", ["dom", "sub"]],
-        ["Feminization/Sissy", ["dom", "sub"]],
-        ["Exhibition/Voyeur", ["exhib", "voyeur"]],
-        ["Double-Penetration", ["top", "bottom"]],
-        ["Multi-Partner", ["top", "bottom"]],
-        ["Tickling", ["dom", "sub"]],
-        // TODO: give/receive?
-        ["Cumswapping", [""]],
-        ["Thighsex", ["top", "bottom"]],
-        ["Titfuck", ["top", "bottom"]],
-        ["Footjob", ["give", "receive"]],
-        ["Armpit Sex", ["top", "bottom"]],
+        ["Milking", ["dom", "sub"], 48],
+        ["Nursing", ["dom", "sub"], 49],
+        ["Feet", [""], 50],
+        ["Pee", ["dom", "sub"], 51],
+        ["Roleplay", [""], 52],
+        ["Diapers/ABDL", [""], 53],
+        ["Cheating/Cuckold/NTR", ["dom", "sub"], 54],
+        ["Feminization/Sissy", ["dom", "sub"], 55],
+        ["Exhibition/Voyeur", ["exhib", "voyeur"], 56],
+        ["Double-Penetration", ["top", "bottom"], 57],
+        ["Multi-Partner", ["top", "bottom"], 58],
+        ["Tickling", ["dom", "sub"], 59],
+        ["Cumswapping", [""], 60],
+        ["Thighsex", ["top", "bottom"], 61],
+        ["Titfuck", ["top", "bottom"], 62],
+        ["Footjob", ["give", "receive"], 63],
+        ["Armpit Sex", ["top", "bottom"], 64],
     ],
     "Pain": [
-        ["Physical Pain", ["give", "receive"]],
-        ["Nipple Clamps", ["give", "receive"]],
-        ["Hard Spanking", ["give", "receive"]],
-        ["Whipping", ["give", "receive"]],
-        ["Slapping", ["give", "receive"]],
-        ["Biting", ["give", "receive"]],
-        ["Hot Wax", ["give", "receive"]],
-        ["Scratching", ["give", "receive"]],
-        ["Cock/Ball Slapping", ["give", "receive"]],
-        ["Vagina Slapping", ["give", "receive"]],
-        ["Clothespins", ["give", "receive"]],
-        ["Needles", ["give", "receive"]],
+        ["Physical Pain", ["give", "receive"], 65],
+        ["Nipple Clamps", ["give", "receive"], 66],
+        ["Hard Spanking", ["give", "receive"], 67],
+        ["Whipping", ["give", "receive"], 68],
+        ["Slapping", ["give", "receive"], 69],
+        ["Biting", ["give", "receive"], 70],
+        ["Hot Wax", ["give", "receive"], 71],
+        ["Scratching", ["give", "receive"], 72],
+        ["Cock/Ball Slapping", ["give", "receive"], 73],
+        ["Vagina Slapping", ["give", "receive"], 74],
+        ["Clothespins", ["give", "receive"], 75],
+        ["Needles", ["give", "receive"], 76],
     ],
     "Clothing": [
-        ["Clothed Sex", [""]],
-        ["Collars", ["dom", "sub"]],
-        ["Latex", [""]],
-        ["Lingerie", [""]],
-        ["Stockings/Pantyhose", [""]],
-        ["Crossdressing", [""]],
-        ["Forced Dressup", ["dom", "sub"]],
-        ["Leather", [""]],
-        ["Socks", [""]],
-        ["Uniforms", [""]],
-        ["Cosplay", [""]],
-        ["Furry", [""]],
+        ["Clothed Sex", [""], 77],
+        ["Collars", ["dom", "sub"], 78],
+        ["Latex", [""], 79],
+        ["Lingerie", [""], 80],
+        ["Stockings/Pantyhose", [""], 81],
+        ["Crossdressing", [""], 82],
+        ["Forced Dressup", ["dom", "sub"], 83],
+        ["Leather", [""], 84],
+        ["Socks", [""], 85],
+        ["Uniforms", [""], 86],
+        ["Cosplay", [""], 87],
+        ["Furry", [""], 88],
     ],
     "Extreme": [
-        ["Scat", [""]],
-        ["Cutting", ["give", "receive"]],
-        ["Raceplay", ["dom", "sub"]],
-        ["Bestiality", [""]],
-        ["Necrophilia", [""]],
-        ["Hard Rape", ["top", "bottom"]],
-        ["Children", [""]],
-        ["Blood", [""]],
-        ["Cannibalism", ["dom", "sub"]],
-        ["Torture", ["dom", "sub"]],
-        ["Genital Mutilation", ["give", "receive"]],
+        ["Scat", [""], 89],
+        ["Cutting", ["give", "receive"], 90],
+        ["Raceplay", ["dom", "sub"], 91],
+        ["Bestiality", [""], 92],
+        ["Necrophilia", [""], 93],
+        ["Hard Rape", ["top", "bottom"], 94],
+        ["Children", [""], 95],
+        ["Blood", [""], 96],
+        ["Cannibalism", ["dom", "sub"], 97],
+        ["Torture", ["dom", "sub"], 20],
+        ["Genital Mutilation", ["give", "receive"], 21],
     ],
 };
+
+export type ratings = { [k: string]: number[][] };
+export const defaultRatings: ratings = Object.fromEntries(
+    Object.entries(kinks).map<[string, number[][]]>(
+        ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => 0))])
+);
+
+export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
+    const r = Object.entries(ratings)
+        .flatMap(([cat, rats]) => kinks[cat]
+            .map<[number, number[]]>(([, , id], i) => [id, rats[i]]))
+        .reduce<number[]>((r, [id, rat]) => {
+            const enc = (x: number) => x % 1 === 0 ? x : Math.floor(x) | (1 << 3);
+            r[id] = (enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]);
+            return r;
+        }, []);
+    return "0;" + b64.fromByteArray(new Uint8Array(r));
+}
+
+export function decodeKinkCheck(s: string): { ratings: ratings } {
+    const x = s.split(";");
+    if (Number.parseInt(/[0-9]+/.exec(x[0])!.reduce((x, y) => x + y)) !== 0)
+        throw "unsupported kinkcheck serialization version";
+    const ratings = defaultRatings;
+    b64.toByteArray(x[1]).forEach((rat, id) => {
+        Object.keys(ratings).forEach((cat) => {
+            ratings[cat].forEach((_, i) => {
+                if (kinks[cat][i][2] === id) {
+                    const dec = (x: number) => (x & 7) + (x & (1 << 3) ? 0.5 : 0);
+                    const r0 = dec(rat);
+                    const r1 = dec(rat >> 4);
+                    const len2 = kinks[cat][i][1].length === 2;
+                    if (len2 || r0 === r1)
+                        ratings[cat][i] = len2 ? [r0, r1] : [r0];
+                }
+            });
+        });
+    });
+    return { ratings };
+}
 
 export const transbianLines: [string, string][] = [
     ["Snortin' lines of progesterone", "has taken prog"],
@@ -175,6 +205,3 @@ export const transbianLines: [string, string][] = [
     ["She tryna grab my girlcock, I told her \"bitch, settle down!\"", "had to slow someone down sexually"],
     ["Put a Glock to his forehead, now he got a metal crown", "pulled a gun on someone"],
 ];
-
-export const topBottomValue = atom(0.5);
-export const sexualValue = atom(0.5);

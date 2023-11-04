@@ -1,54 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Rater from "../components/Rater";
-import { kinks, ratings } from "../base";
+import { ratings } from "../base";
 import HeaderLogo from "../components/HeaderLogo.astro";
+import KinkCheck from "../components/KinkCheck";
 ---
 
 <Layout>
 	<header>
 		<HeaderLogo />
-		{
-			ratings.map(([n], i) => (
-				<Rater text={n} initialRating={i} className="rater noclick" />
-			))
-		}
+		<div class="ratings">
+			{
+				ratings.map(([n], i) => (
+					<Rater text={n} rating={i} className="rater noclick" />
+				))
+			}
+		</div>
 	</header>
 	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
 	<!-- TODO: add a name field -->
-	<main>
-		{
-			Object.entries(kinks).map(([cat, kinks]) => (
-				<div class="category">
-					<h2>{cat}</h2>
-					<table rules="rows">
-						<tbody>
-							{kinks.map(([kink, positions]) => (
-								<tr>
-									<td>{kink}</td>
-									{positions.map((pos) => (
-										<td>
-											<Rater client:load text={pos} />
-										</td>
-									))}
-									{positions.length === 1 ? (
-										<td />
-									) : undefined}
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-			))
-		}
-	</main>
+	<KinkCheck client:load />
 </Layout>
 
 <style is:global>
-	body {
-		width: calc(max(1440px, 100%));
-	}
 	table {
+		border: 1px solid #303030;
+		border-collapse: collapse;
+	}
+	tr {
 		border: 1px solid #303030;
 	}
 	td {
@@ -58,16 +37,29 @@ import HeaderLogo from "../components/HeaderLogo.astro";
 		margin-bottom: 6px;
 		margin-top: 9px;
 	}
+	h1 {
+		width: 20ch;
+	}
 	header {
-		display: grid;
-		grid-template-rows: auto;
-		grid-template-columns: repeat(7, auto);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.ratings {
+		width: calc(600% / 7);
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
 		align-items: center;
 	}
 	main {
-		display: grid;
-		grid-template-rows: auto;
-		grid-template-columns: repeat(3, auto);
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-evenly;
+		column-gap: 2ch;
+	}
+	.category {
+		min-width: 28%;
 	}
 	.rater,
 	table {
