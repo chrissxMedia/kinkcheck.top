@@ -1,4 +1,4 @@
-import { atom } from "nanostores";
+import b64 from "base64-js";
 
 export const ratings: [string, string][] = [
     ["i dont know", "#808080"],
@@ -148,6 +148,40 @@ export const defaultRatings: ratings = Object.fromEntries(
         ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => 0))])
 );
 
+export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
+    const r = Object.entries(ratings)
+        .flatMap(([cat, rats]) => kinks[cat]
+            .map<[number, number[]]>(([, , id], i) => [id, rats[i]]))
+        .reduce<number[]>((r, [id, rat]) => {
+            const enc = (x: number) => x % 1 === 0 ? x : Math.floor(x) | (1 << 3);
+            r[id] = (enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]);
+            return r;
+        }, []);
+    return "0;" + b64.fromByteArray(new Uint8Array(r));
+}
+
+export function decodeKinkCheck(s: string): { ratings: ratings } {
+    const x = s.split(";");
+    if (Number.parseInt(/[0-9]+/.exec(x[0])!.reduce((x, y) => x + y)) !== 0)
+        throw "unsupported kinkcheck serialization version";
+    const ratings = defaultRatings;
+    b64.toByteArray(x[1]).forEach((rat, id) => {
+        Object.keys(ratings).forEach((cat) => {
+            ratings[cat].forEach((_, i) => {
+                if (kinks[cat][i][2] === id) {
+                    const dec = (x: number) => (x & 7) + (x & (1 << 3) ? 0.5 : 0);
+                    const r0 = dec(rat);
+                    const r1 = dec(rat >> 4);
+                    const len2 = kinks[cat][i][1].length === 2;
+                    if (len2 || r0 === r1)
+                        ratings[cat][i] = len2 ? [r0, r1] : [r0];
+                }
+            });
+        });
+    });
+    return { ratings };
+}
+
 export const transbianLines: [string, string][] = [
     ["Snortin' lines of progesterone", "has taken prog"],
     ["More alpha than you, bitch, where my testosterone", "has t levels below 100 ng/dL"],
@@ -171,6 +205,3 @@ export const transbianLines: [string, string][] = [
     ["She tryna grab my girlcock, I told her \"bitch, settle down!\"", "had to slow someone down sexually"],
     ["Put a Glock to his forehead, now he got a metal crown", "pulled a gun on someone"],
 ];
-
-export const topBottomValue = atom(0.5);
-export const sexualValue = atom(0.5);
