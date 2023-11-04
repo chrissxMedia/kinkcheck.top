@@ -16,7 +16,7 @@ if(!title.includes(kc)) title += " | " + kc;
 <BaseLayout
     lang="en"
     copyrightstart={2023}
-    repo="https://github.com/chrissxMedia/kinkcheck.top"
+    repo="https://github.com/chrissxMedia/KinkCheck.Top"
     {title}
     {favicon}
 >
@@ -37,6 +37,11 @@ if(!title.includes(kc)) title += " | " + kc;
     div#content {
         padding: 12px;
         margin: auto;
+    }
+    @media screen and (max-width: 600px) {
+        div#content {
+            padding: 0;
+        }
     }
     nav {
         display: flex;
