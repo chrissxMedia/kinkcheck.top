@@ -23,6 +23,9 @@ import KinkCheck from "../components/KinkCheck";
 </Layout>
 
 <style is:global>
+	body {
+		min-width: 450px;
+	}
 	table {
 		border: 1px solid #303030;
 		border-collapse: collapse;
@@ -51,6 +54,15 @@ import KinkCheck from "../components/KinkCheck";
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 		align-items: center;
+	}
+	@media screen and (max-width: 800px) {
+		.ratings {
+			justify-content: space-between;
+		}
+		.category,
+		table {
+			width: 100%;
+		}
 	}
 	main {
 		display: flex;
