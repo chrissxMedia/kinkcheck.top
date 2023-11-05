@@ -21,7 +21,8 @@ function mixColors(a: [number, number, number], b: [number, number, number]): nu
 export function ratingColor(i: number): string {
     if (i % 1 == 0) return ratings[i][1];
     const c = mixColors(splitColor(ratings[i - 0.5][1]), splitColor(ratings[i + 0.5][1]));
-    return `#${c[0].toString(16)}${c[1].toString(16)}${c[2].toString(16)}`;
+    const ts = (n: number) => n.toString(16).padStart(2, "0");
+    return `#${ts(c[0])}${ts(c[1])}${ts(c[2])}`;
 }
 
 type positions = [string, string] | [""];
