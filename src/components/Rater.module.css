@@ -1,0 +1,22 @@
+.clickable,
+.noclick {
+    font-size: 16pt;
+    height: 16pt;
+    display: flex;
+    flex-direction: row;
+}
+
+.clickable button,
+.noclick button {
+    width: 16pt;
+    height: 16pt;
+    border: none;
+    margin-right: 4px;
+}
+
+.clickable,
+.clickable button {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}

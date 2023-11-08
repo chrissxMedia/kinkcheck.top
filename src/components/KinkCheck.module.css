@@ -1,0 +1,43 @@
+main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    column-gap: 2ch;
+}
+
+table {
+    border: 1px solid #303030;
+    border-collapse: collapse;
+    font-size: 16pt;
+}
+
+tr {
+    border: 1px solid #303030;
+}
+
+td {
+    padding-left: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+h2 {
+    margin-bottom: 6px;
+    margin-top: 9px;
+}
+
+h1 {
+    width: 20ch;
+}
+
+.category {
+    min-width: 28%;
+}
+
+@media screen and (max-width: 800px) {
+
+    .category,
+    table {
+        width: 100%;
+    }
+}

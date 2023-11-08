@@ -22,28 +22,9 @@ import KinkCheck from "../components/KinkCheck";
 	<KinkCheck client:load />
 </Layout>
 
-<style is:global>
-	body {
+<style>
+	:global(body) {
 		min-width: 450px;
-	}
-	table {
-		border: 1px solid #303030;
-		border-collapse: collapse;
-	}
-	tr {
-		border: 1px solid #303030;
-	}
-	td {
-		padding-left: 8px;
-		padding-top: 2px;
-		padding-bottom: 2px;
-	}
-	h2 {
-		margin-bottom: 6px;
-		margin-top: 9px;
-	}
-	h1 {
-		width: 20ch;
 	}
 	header {
 		display: flex;
@@ -61,43 +42,5 @@ import KinkCheck from "../components/KinkCheck";
 		.ratings {
 			justify-content: space-between;
 		}
-		.category,
-		table {
-			width: 100%;
-		}
-	}
-	main {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-evenly;
-		column-gap: 2ch;
-	}
-	.category {
-		min-width: 28%;
-	}
-	.rater,
-	table {
-		font-size: 16pt;
-	}
-	.rater {
-		height: 16pt;
-		display: flex;
-		flex-direction: row;
-		cursor: pointer;
-		-webkit-user-select: none;
-		user-select: none;
-	}
-	.rater button {
-		width: 16pt;
-		height: 16pt;
-		border: none;
-		cursor: pointer;
-		margin-right: 4px;
-	}
-	.noclick,
-	.noclick button {
-		cursor: auto;
-		-webkit-user-select: auto;
-		user-select: auto;
 	}
 </style>

@@ -1,6 +1,7 @@
 import { useState } from "preact/hooks";
 import { defaultRatings, kinks } from "../base";
 import Rater from "./Rater";
+import styles from "./KinkCheck.module.css";
 
 export default function KinkCheck() {
     const [ratings, setRatings] = useState(defaultRatings);
@@ -14,7 +15,7 @@ export default function KinkCheck() {
     return <main>
         {
             Object.entries(kinks).map(([cat, kinks]) => (
-                <div class="category">
+                <div class={styles.category}>
                     <h2>{cat}</h2>
                     <table>
                         <tbody>
@@ -24,7 +25,7 @@ export default function KinkCheck() {
                                     {positions.map((pos, p) => (
                                         <td>
                                             <Rater text={pos} rating={ratings[cat][i][p]}
-                                                setRating={setRating(cat, i, p)} />
+                                                setRating={setRating(cat, i, p)} clickable={true} />
                                         </td>
                                     ))}
                                     {positions.length === 1 ? <td /> : undefined}

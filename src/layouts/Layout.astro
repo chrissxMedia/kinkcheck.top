@@ -8,9 +8,9 @@ export interface Props {
     title?: string;
 }
 
-const kc = `KinkCheck.Top v${version}`
+const kc = `KinkCheck.Top v${version}`;
 let { title = kc } = Astro.props;
-if(!title.includes(kc)) title += " | " + kc;
+if (!title.includes(kc)) title += " | " + kc;
 ---
 
 <BaseLayout
