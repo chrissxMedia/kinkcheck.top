@@ -9,22 +9,6 @@ export const ratings: [string, string][] = [
     ["hard limit", "#303030"],
 ];
 
-function splitColor(hex: string): [number, number, number] {
-    const c = hex.substring(1).match(/.{2}/g)!;
-    return [parseInt(c[0], 16), parseInt(c[1], 16), parseInt(c[2], 16)];
-}
-
-function mixColors(a: [number, number, number], b: [number, number, number]): number[] {
-    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2].map(Math.round);
-}
-
-export function ratingColor(i: number): string {
-    if (i % 1 == 0) return ratings[i][1];
-    const c = mixColors(splitColor(ratings[i - 0.5][1]), splitColor(ratings[i + 0.5][1]));
-    const ts = (n: number) => n.toString(16).padStart(2, "0");
-    return `#${ts(c[0])}${ts(c[1])}${ts(c[2])}`;
-}
-
 type positions = [string, string] | [""];
 // TODO: info texts
 type kink = [string, positions, number];
