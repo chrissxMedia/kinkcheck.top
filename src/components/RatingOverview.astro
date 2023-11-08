@@ -1,0 +1,24 @@
+---
+import { ratings } from "../base";
+import Rater from "./Rater";
+---
+
+<div>
+    {ratings.map(([n], i) => <Rater text={n} rating={i} clickable={false} />)}
+</div>
+
+<style>
+    div {
+        width: calc(600% / 7);
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: 2ch;
+    }
+    @media screen and (max-width: 800px) {
+        div {
+            justify-content: space-between;
+        }
+    }
+</style>

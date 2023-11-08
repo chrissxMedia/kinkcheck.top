@@ -1,21 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Rater from "../components/Rater";
-import { ratings } from "../base";
 import HeaderLogo from "../components/HeaderLogo.astro";
 import KinkCheck from "../components/KinkCheck";
+import RatingOverview from "../components/RatingOverview.astro";
 ---
 
 <Layout>
 	<header>
 		<HeaderLogo />
-		<div class="ratings">
-			{
-				ratings.map(([n], i) => (
-					<Rater text={n} rating={i} className="rater noclick" />
-				))
-			}
-		</div>
+		<RatingOverview />
 	</header>
 	<!-- TODO: some explainations, of the functioning and of how the kinks should be interpreted -->
 	<!-- TODO: add a name field -->
@@ -30,17 +23,5 @@ import KinkCheck from "../components/KinkCheck";
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-	}
-	.ratings {
-		width: calc(600% / 7);
-		display: flex;
-		justify-content: space-evenly;
-		flex-wrap: wrap;
-		align-items: center;
-	}
-	@media screen and (max-width: 800px) {
-		.ratings {
-			justify-content: space-between;
-		}
 	}
 </style>
