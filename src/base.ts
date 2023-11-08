@@ -1,12 +1,12 @@
 import base64 from "base64-js";
 
 export const ratings: [string, string][] = [
-    ["i dont know", "#808080"],
-    ["favorite", "#21eee0"],
-    ["want to do", "#0eb620"],
-    ["could be convinced", "#eeef29"],
-    ["not interested", "#c81c11"],
-    ["hard limit", "#202020"],
+    ["i dont know", "#a0a0a0"],
+    ["favorite", "#00e0e0"],
+    ["want to do", "#00c020"],
+    ["could be convinced", "#eeee20"],
+    ["not interested", "#d02000"],
+    ["hard limit", "#303030"],
 ];
 
 function splitColor(hex: string): [number, number, number] {
