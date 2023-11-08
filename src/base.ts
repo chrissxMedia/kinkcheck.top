@@ -1,4 +1,4 @@
-import b64 from "base64-js";
+import base64 from "base64-js";
 
 export const ratings: [string, string][] = [
     ["i dont know", "#808080"],
@@ -149,6 +149,11 @@ export const defaultRatings: ratings = Object.fromEntries(
         ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => 0))])
 );
 
+const toBase64 = (x: Uint8Array) =>
+    base64.fromByteArray(x).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+const fromBase64 = (x: string) =>
+    base64.toByteArray(x.length % 4 ? x.padEnd(x.length + 4 - (x.length % 4), "=") : x);
+
 export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
     const r = Object.entries(ratings)
         .flatMap(([cat, rats]) => kinks[cat]
@@ -158,15 +163,15 @@ export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
             r[id] = (enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]);
             return r;
         }, []);
-    return "0;" + b64.fromByteArray(new Uint8Array(r));
+    return "0~" + toBase64(new Uint8Array(r));
 }
 
 export function decodeKinkCheck(s: string): { ratings: ratings } {
-    const x = s.split(";");
+    const x = s.split("~");
     if (Number.parseInt(/[0-9]+/.exec(x[0])!.reduce((x, y) => x + y)) !== 0)
         throw "unsupported kinkcheck serialization version";
     const ratings = defaultRatings;
-    b64.toByteArray(x[1]).forEach((rat, id) => {
+    fromBase64(x[1]).forEach((rat, id) => {
         Object.keys(ratings).forEach((cat) => {
             ratings[cat].forEach((_, i) => {
                 if (kinks[cat][i][2] === id) {
