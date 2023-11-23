@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@astrojs/preact": "^3.0.0",
-    "astro": "^3.3.0",
+    "astro": "^3.5.0",
     "base64-js": "^1.5.1",
-    "cmdesigns": "^0.0.23",
+    "cmdesigns": "^0.0.25",
     "html2canvas": "^1.4.1",
     "preact": "^10.17.1",
     "vitest": "^0.34.6"
