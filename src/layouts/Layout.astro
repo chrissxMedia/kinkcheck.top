@@ -3,13 +3,15 @@ import { BaseLayout } from "cmdesigns";
 import favicon from "../favicon.png";
 import { version } from "../../package.json";
 import ScreenshotButton from "../components/ScreenshotButton";
+import type { Options } from "html2canvas";
 
 export interface Props {
     title?: string;
+    screenshotOptions?: Partial<Options>;
 }
 
 const kc = `KinkCheck.Top v${version}`;
-let { title = kc } = Astro.props;
+let { title = kc, screenshotOptions = {} } = Astro.props;
 if (!title.includes(kc)) title += " | " + kc;
 ---
 
@@ -26,7 +28,7 @@ if (!title.includes(kc)) title += " | " + kc;
     <nav slot="footer">
         <a href="/tlcc">Trans Lesbian Badges</a>
         <a href="/flag">Flag Generator</a>
-        <ScreenshotButton title={title} client:load />
+        <ScreenshotButton {title} options={screenshotOptions} client:load />
     </nav>
 </BaseLayout>
 
