@@ -18,6 +18,5 @@
 .clickable,
 .clickable button {
     cursor: pointer;
-    -webkit-user-select: none;
     user-select: none;
 }

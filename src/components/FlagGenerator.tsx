@@ -17,8 +17,8 @@ export default function FlagGenerator() {
                 spellcheck={false} autocorrect="off"
                 value={flag} onChange={e => setFlag(e.target.value)} />
             {chars.length ? chars.map(x => (
-                <div style={`width:600px;background-color:${colors[x]};height:${height}px`} />
-            )) : <div style={`width:600px;background-color:transparent;height:400px`} />}
+                <div style={{ width: 600, backgroundColor: colors[x], height }} />
+            )) : <div style={{ width: 600, backgroundColor: "transparent", height: 400 }} />}
         </main>
     );
 }

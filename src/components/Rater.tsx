@@ -21,7 +21,7 @@ export default function Rater({ text, rating, setRating, clickable }:
     return (
         <div class={clickable ? styles.clickable : styles.noclick}
             onClick={handleClick} onContextMenu={handleClick}>
-            <button style={"background:" + background(rating)} />
+            <button style={{ background: background(rating) }} />
             {text}
         </div>
     );

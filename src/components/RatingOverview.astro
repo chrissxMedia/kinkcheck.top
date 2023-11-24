@@ -11,12 +11,12 @@ import Rater from "./Rater";
     div {
         flex-grow: 1;
         display: flex;
+        flex-flow: row wrap;
         justify-content: space-evenly;
-        flex-wrap: wrap;
         align-items: center;
         column-gap: 2ch;
     }
-    @media screen and (max-width: 800px) {
+    @media screen and (width <= 800px) {
         div {
             justify-content: space-between;
         }

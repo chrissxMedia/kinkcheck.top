@@ -12,8 +12,8 @@ import HeaderLogo from "../components/HeaderLogo.astro";
     ></iframe>
     <main>
         {
-            transbianLines.map((x) => (
-                <LyricBadge line={x[0]} description={x[1]} />
+            transbianLines.map(([line, description]) => (
+                <LyricBadge {line} {description} />
             ))
         }
     </main>
@@ -27,8 +27,8 @@ import HeaderLogo from "../components/HeaderLogo.astro";
         border: 0;
     }
     main {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 30ch);
+        display: flex;
+        flex-flow: row wrap;
         gap: 5ch;
         margin: 5ch;
     }

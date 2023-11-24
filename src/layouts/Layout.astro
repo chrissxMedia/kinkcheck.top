@@ -30,15 +30,12 @@ if (!title.includes(kc)) title += " | " + kc;
     </nav>
 </BaseLayout>
 
-<style is:global>
-    body {
-        margin: 0;
-    }
+<style>
     div#content {
         padding: 12px;
         margin: auto;
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         div#content {
             padding: 0;
         }
@@ -47,9 +44,10 @@ if (!title.includes(kc)) title += " | " + kc;
         display: flex;
         column-gap: 1ch;
         justify-content: center;
+        /* TODO: figure out an appropriate padding (or margin) in part based on vw */
     }
-    a,
-    :visited {
+    nav :global(a),
+    nav :global:visited {
         color: #c0c0c0;
         text-decoration: underline;
         cursor: pointer;

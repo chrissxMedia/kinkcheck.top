@@ -26,16 +26,12 @@ h2 {
     margin-top: 9px;
 }
 
-h1 {
-    width: 20ch;
-}
 
 .category {
     min-width: 28%;
 }
 
-@media screen and (max-width: 800px) {
-
+@media screen and (width <= 800px) {
     .category,
     table {
         width: 100%;
