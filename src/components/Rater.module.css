@@ -1,18 +1,16 @@
 .clickable,
 .noclick {
-    font-size: 16pt;
-    height: 16pt;
     display: flex;
     flex-direction: row;
 }
 
 .clickable button,
 .noclick button {
-    width: 16pt;
-    height: 16pt;
+    width: 1em;
+    height: 1em;
     border: none;
     margin-right: .1875em;
-    padding: 0 8pt;
+    padding: 0 .5em;
 }
 
 .clickable,
