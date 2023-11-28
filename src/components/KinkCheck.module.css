@@ -1,4 +1,4 @@
-main {
+.catcontainer {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
@@ -19,13 +19,34 @@ td {
     padding-left: 8px;
     padding-top: 2px;
     padding-bottom: 2px;
+    position: relative;
 }
 
-h2 {
+.desc {
+    background-color: rgb(var(--cmblack));
+    color: white;
+    visibility: hidden;
+    width: 300px;
+    text-align: center;
+    border-radius: 8pt;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+td:hover .desc {
+    visibility: visible;
+}
+
+td:hover .desc:hover {
+    visibility: hidden;
+}
+
+.catname {
     margin-bottom: 6px;
     margin-top: 9px;
 }
-
 
 .category {
     min-width: 28%;

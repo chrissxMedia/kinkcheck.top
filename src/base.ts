@@ -1,5 +1,6 @@
 import base64 from "base64-js";
 
+// TODO: descriptions?
 export const ratings: [string, string][] = [
     ["i dont know", "#a0a0a0"],
     ["favorite", "#00e0e0"],
@@ -9,9 +10,8 @@ export const ratings: [string, string][] = [
     ["hard limit", "#303030"],
 ];
 
-type positions = [string, string] | [""];
-// TODO: info texts
-type kink = [string, positions, number];
+export type positions = [string, string] | [""];
+export type kink = [string, positions, number] | [string, positions, number, string];
 
 export const kinks: { [k: string]: kink[] } = {
     "General": [
