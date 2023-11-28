@@ -1,0 +1,24 @@
+.clickable,
+.noclick {
+    display: flex;
+    flex-direction: row;
+}
+
+.clickable button,
+.noclick button {
+    width: 1em;
+    height: 1em;
+    border: none;
+    margin-right: .1875em;
+    padding: 0 .5em;
+}
+
+.clickable,
+.clickable * {
+    cursor: pointer;
+    user-select: none;
+}
+
+.position {
+    margin-top: -.05em;
+}

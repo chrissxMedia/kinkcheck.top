@@ -1,32 +1,17 @@
-import b64 from "base64-js";
+import base64 from "base64-js";
 
+// TODO: descriptions?
 export const ratings: [string, string][] = [
-    ["i dont know", "#808080"],
-    ["favorite", "#21eee0"],
-    ["want to do", "#0eb620"],
-    ["could be convinced", "#eeef29"],
-    ["not interested", "#c81c11"],
-    ["hard limit", "#202020"],
+    ["i dont know", "#a0a0a0"],
+    ["favorite", "#00e0e0"],
+    ["want to do", "#00c020"],
+    ["could be convinced", "#eeee20"],
+    ["not interested", "#d02000"],
+    ["hard limit", "#303030"],
 ];
 
-function splitColor(hex: string): [number, number, number] {
-    const c = hex.substring(1).match(/.{2}/g)!;
-    return [parseInt(c[0], 16), parseInt(c[1], 16), parseInt(c[2], 16)];
-}
-
-function mixColors(a: [number, number, number], b: [number, number, number]): number[] {
-    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2].map(Math.round);
-}
-
-export function ratingColor(i: number): string {
-    if (i % 1 == 0) return ratings[i][1];
-    const c = mixColors(splitColor(ratings[i - 0.5][1]), splitColor(ratings[i + 0.5][1]));
-    return `#${c[0].toString(16)}${c[1].toString(16)}${c[2].toString(16)}`;
-}
-
-type positions = [string, string] | [""];
-// TODO: info texts
-type kink = [string, positions, number];
+export type positions = [string, string] | [""];
+export type kink = [string, positions, number] | [string, positions, number, string];
 
 export const kinks: { [k: string]: kink[] } = {
     "General": [
@@ -35,8 +20,8 @@ export const kinks: { [k: string]: kink[] } = {
         ["Face-Fucking", ["give", "receive"], 2],
         ["Face-Sitting", ["top", "bottom"], 3],
         ["Handjobs", ["give", "receive"], 4],
-        ["Fingering", ["give", "receive"], 5],
-        ["Fisting", ["give", "receive"], 6],
+        ["Vaginal Fingering", ["give", "receive"], 5],
+        ["Vaginal Fisting", ["give", "receive"], 6],
         ["Rough Sex", [""], 7],
         ["Creampie", ["give", "receive"], 8],
         ["Swallowing", ["top", "bottom"], 9],
@@ -148,6 +133,11 @@ export const defaultRatings: ratings = Object.fromEntries(
         ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => 0))])
 );
 
+const toBase64 = (x: Uint8Array) =>
+    base64.fromByteArray(x).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+const fromBase64 = (x: string) =>
+    base64.toByteArray(x.length % 4 ? x.padEnd(x.length + 4 - (x.length % 4), "=") : x);
+
 export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
     const r = Object.entries(ratings)
         .flatMap(([cat, rats]) => kinks[cat]
@@ -157,15 +147,15 @@ export function encodeKinkCheck({ ratings }: { ratings: ratings }): string {
             r[id] = (enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]);
             return r;
         }, []);
-    return "0;" + b64.fromByteArray(new Uint8Array(r));
+    return "0~" + toBase64(new Uint8Array(r));
 }
 
 export function decodeKinkCheck(s: string): { ratings: ratings } {
-    const x = s.split(";");
+    const x = s.split("~");
     if (Number.parseInt(/[0-9]+/.exec(x[0])!.reduce((x, y) => x + y)) !== 0)
         throw "unsupported kinkcheck serialization version";
     const ratings = defaultRatings;
-    b64.toByteArray(x[1]).forEach((rat, id) => {
+    fromBase64(x[1]).forEach((rat, id) => {
         Object.keys(ratings).forEach((cat) => {
             ratings[cat].forEach((_, i) => {
                 if (kinks[cat][i][2] === id) {
@@ -181,27 +171,3 @@ export function decodeKinkCheck(s: string): { ratings: ratings } {
     });
     return { ratings };
 }
-
-export const transbianLines: [string, string][] = [
-    ["Snortin' lines of progesterone", "has taken prog"],
-    ["More alpha than you, bitch, where my testosterone", "has t levels below 100 ng/dL"],
-    ["I cyber-dommed a bitch and she told me \"thank you!\"", "dommed someone online (and they thanked)"],
-    ["She sent me a picture of her pussy like Britney Spears", "received a picture of someone's pussy"],
-    ["She asked me where I'm at, look, bitch, I am almost here!", "been eagerly awaited for sexual reasons"],
-    ["I'm smoking fat blunts, I look like Fidel Castro", "regularly smokes weed"],
-    ["I'm a femboy so my Glock got a girldick", "owns a gun"],
-    ["Internally drowned a femboy, he drank too much from nursing", "nursed someone"],
-    ["I'm with a bad bitch shootin' clips for /r/lesdom", "recorded porn"],
-    ["I don't own a kingdom, I just do my femdom", "dommed (irl)"],
-    ["I'm at the Taco Bell dropping lean in my Baja Blast", "taken codeine"],
-    ["I'm shootin' at her feet", "came on someone's feet"],
-    ["My Glock is just like me, 'cause it also got a big cock!", "has a cock ≥ 18cm (7in)"],
-    ["I'm sexting a cute top and she's making me keysmash", "keysmashed"],
-    ["Put it to his lips like it's beeswax", "came on someone's lips"],
-    ["I cannot associate with you, you're not a sex haver", "has sex regularly"],
-    ["Femme sub bitch, so she use me like a sex toy", "been someone's \"sex toy\""],
-    ["This bitch that I'm sexting just called me her princess", "been called \"princess\""],
-    ["I call her Corpsegrinder 'cause she give me that good neck", "gotten head"],
-    ["She tryna grab my girlcock, I told her \"bitch, settle down!\"", "had to slow someone down sexually"],
-    ["Put a Glock to his forehead, now he got a metal crown", "pulled a gun on someone"],
-];

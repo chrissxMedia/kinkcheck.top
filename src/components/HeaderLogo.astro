@@ -1,10 +1,17 @@
 ---
 import { version } from "../../package.json";
+
+export interface Props {
+    includeVersion?: boolean;
+}
+
+const {includeVersion=true} = Astro.props;
+const v = includeVersion ? " v" + version : "";
 ---
 
 <h1>
     <a href="/">
-        KinkCheck<span class="h2thing">.Top v{version}</span>
+        <span class="k">K</span>ink<span class="c">C</span>heck<span class="t">.Top{v}</span>
     </a><slot />
 </h1>
 
@@ -12,8 +19,14 @@ import { version } from "../../package.json";
     h1 {
         margin: 0;
     }
-    .h2thing {
-        font-size: 24px;
+    .k {
+        color: rgb(var(--cmpurple));
+    }
+    .c {
+        color: rgb(var(--cmred));
+    }
+    .t {
+        font-size: .75em;
     }
     a {
         color: white;

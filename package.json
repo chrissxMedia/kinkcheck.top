@@ -1,7 +1,7 @@
 {
   "name": "kinkcheck",
   "type": "module",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -12,11 +12,14 @@
   },
   "dependencies": {
     "@astrojs/preact": "^3.0.0",
-    "astro": "^3.3.0",
+    "astro": "^3.5.0",
+    "autoprefixer": "^10.4.16",
     "base64-js": "^1.5.1",
-    "cmdesigns": "^0.0.23",
+    "cmdesigns": "^0.0.25",
+    "cssnano": "^6.0.1",
     "html2canvas": "^1.4.1",
     "preact": "^10.17.1",
+    "stylelint-config-standard": "^34.0.0",
     "vitest": "^0.34.6"
   }
 }

@@ -1,0 +1,8 @@
+.input {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 16pt;
+    background-color: rgb(var(--cmblack));
+    color: white;
+    border: 0;
+}

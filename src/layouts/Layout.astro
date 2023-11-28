@@ -3,14 +3,16 @@ import { BaseLayout } from "cmdesigns";
 import favicon from "../favicon.png";
 import { version } from "../../package.json";
 import ScreenshotButton from "../components/ScreenshotButton";
+import type { Options } from "html2canvas";
 
 export interface Props {
     title?: string;
+    screenshotOptions?: Partial<Options>;
 }
 
-const kc = `KinkCheck.Top v${version}`
-let { title = kc } = Astro.props;
-if(!title.includes(kc)) title += " | " + kc;
+const kc = `KinkCheck.Top v${version}`;
+let { title = kc, screenshotOptions = {} } = Astro.props;
+if (!title.includes(kc)) title += " | " + kc;
 ---
 
 <BaseLayout
@@ -26,19 +28,16 @@ if(!title.includes(kc)) title += " | " + kc;
     <nav slot="footer">
         <a href="/tlcc">Trans Lesbian Badges</a>
         <a href="/flag">Flag Generator</a>
-        <ScreenshotButton title={title} client:load />
+        <ScreenshotButton {title} options={screenshotOptions} client:load />
     </nav>
 </BaseLayout>
 
-<style is:global>
-    body {
-        margin: 0;
-    }
+<style>
     div#content {
         padding: 12px;
         margin: auto;
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (width <= 600px) {
         div#content {
             padding: 0;
         }
@@ -47,9 +46,10 @@ if(!title.includes(kc)) title += " | " + kc;
         display: flex;
         column-gap: 1ch;
         justify-content: center;
+        /* TODO: figure out an appropriate padding (or margin) in part based on vw */
     }
-    a,
-    :visited {
+    nav :global(a),
+    nav :global:visited {
         color: #c0c0c0;
         text-decoration: underline;
         cursor: pointer;

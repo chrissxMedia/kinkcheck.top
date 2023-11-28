@@ -1,21 +1,42 @@
 ---
 import LyricBadge from "../components/LyricBadge.astro";
-import { transbianLines } from "../base";
 import Layout from "../layouts/Layout.astro";
 import HeaderLogo from "../components/HeaderLogo.astro";
+
+const transbianLines: [string, string][] = [
+    ["Snortin' lines of progesterone", "has taken prog"],
+    ["More alpha than you, bitch, where my testosterone", "has t levels below 100 ng/dL"],
+    ["I cyber-dommed a bitch and she told me \"thank you!\"", "dommed someone online (and they thanked)"],
+    ["She sent me a picture of her pussy like Britney Spears", "received a picture of someone's pussy"],
+    ["She asked me where I'm at, look, bitch, I am almost here!", "been eagerly awaited for sexual reasons"],
+    ["I'm smoking fat blunts, I look like Fidel Castro", "regularly smokes weed"],
+    ["I'm a femboy so my Glock got a girldick", "owns a gun"],
+    ["Internally drowned a femboy, he drank too much from nursing", "nursed someone"],
+    ["I'm with a bad bitch shootin' clips for /r/lesdom", "recorded porn"],
+    ["I don't own a kingdom, I just do my femdom", "dommed (irl)"],
+    ["I'm at the Taco Bell dropping lean in my Baja Blast", "taken codeine"],
+    ["I'm shootin' at her feet", "came on someone's feet"],
+    ["My Glock is just like me, 'cause it also got a big cock!", "has a cock ≥ 18cm (7in)"],
+    ["I'm sexting a cute top and she's making me keysmash", "keysmashed"],
+    ["Put it to his lips like it's beeswax", "came on someone's lips"],
+    ["I cannot associate with you, you're not a sex haver", "has sex regularly"],
+    ["Femme sub bitch, so she use me like a sex toy", "been someone's \"sex toy\""],
+    ["This bitch that I'm sexting just called me her princess", "been called \"princess\""],
+    ["I call her Corpsegrinder 'cause she give me that good neck", "gotten head"],
+    ["She tryna grab my girlcock, I told her \"bitch, settle down!\"", "had to slow someone down sexually"],
+    ["Put a Glock to his forehead, now he got a metal crown", "pulled a gun on someone"],
+];
 ---
 
 <Layout title="Trans Lesbian Badges">
-    <header><HeaderLogo>&nbsp;Trans Lesbian Badges</HeaderLogo></header>
+    <header><HeaderLogo>Trans Lesbian Badges</HeaderLogo></header>
     <iframe
-        scrolling="no"
-        frameborder="no"
         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/782840377&color=%23ff5500&auto_play=false&hide_related=true"
     ></iframe>
     <main>
         {
-            transbianLines.map((x) => (
-                <LyricBadge line={x[0]} description={x[1]} />
+            transbianLines.map(([line, description]) => (
+                <LyricBadge {line} {description} />
             ))
         }
     </main>
@@ -26,10 +47,11 @@ import HeaderLogo from "../components/HeaderLogo.astro";
         width: calc(min(100% - 10ch, 1000px));
         height: 166px;
         margin: 5ch;
+        border: 0;
     }
     main {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, 30ch);
+        display: flex;
+        flex-flow: row wrap;
         gap: 5ch;
         margin: 5ch;
     }

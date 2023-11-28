@@ -1,9 +1,14 @@
-import { ratingColor, ratings } from "../base";
+import { ratings } from "../base";
+import styles from "./Rater.module.css";
 
-export default function Rater({ text, rating, setRating, className }:
-    { text: string, rating: number, setRating?: (r: number) => void, className?: string }) {
-    const handleClick = (e: MouseEvent) => {
-        if(!setRating) return;
+function background(rating: number): string {
+    if (rating % 1 === 0) return ratings[rating][1];
+    return `linear-gradient(135deg, ${ratings[rating - 0.5][1]} 0%, ${ratings[rating + 0.5][1]} 100%)`;
+}
+
+export default function Rater({ text, rating, setRating, clickable }:
+    { text: string, rating: number, setRating?: (r: number) => void, clickable: boolean }) {
+    const handleClick = !setRating ? undefined : (e: MouseEvent) => {
         e.preventDefault();
         const step = e.shiftKey || e.altKey ? 0.5 : 1;
         let newRating = e.button ? rating - step : rating + step;
@@ -12,12 +17,12 @@ export default function Rater({ text, rating, setRating, className }:
         else if (newRating > max) newRating = 0;
         else if (newRating < 0) newRating = max;
         setRating(newRating);
-        window.onbeforeunload = () => true;
     };
     return (
-        <div class={className ?? "rater"} onClick={handleClick} onContextMenu={handleClick}>
-            <button style={"background-color:" + ratingColor(rating)} />
-            {text}
+        <div class={clickable ? styles.clickable : styles.noclick}
+            onClick={handleClick} onContextMenu={handleClick}>
+            <button style={{ background: background(rating) }} />
+            <span class={styles.position}>{text}</span>
         </div>
     );
 }
