@@ -22,7 +22,7 @@ export default function Rater({ text, rating, setRating, clickable }:
         <div class={clickable ? styles.clickable : styles.noclick}
             onClick={handleClick} onContextMenu={handleClick}>
             <button style={{ background: background(rating) }} />
-            {text}
+            <span class={styles.position}>{text}</span>
         </div>
     );
 }

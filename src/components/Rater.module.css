@@ -11,12 +11,16 @@
     width: 16pt;
     height: 16pt;
     border: none;
-    margin-right: 4px;
+    margin-right: .1875em;
     padding: 0 8pt;
 }
 
 .clickable,
-.clickable button {
+.clickable * {
     cursor: pointer;
     user-select: none;
+}
+
+.position {
+    margin-top: -.05em;
 }
