@@ -1,29 +1,12 @@
 import { useState } from "preact/hooks";
 import { defaultRatings, kinks, type kink } from "../base";
-import Rater from "./Rater";
+import Kink from "./Kink";
 import styles from "./KinkCheck.module.css";
 
-export function Kink({ kink: [kink, positions, , description], ratings, setRating }:
-    { kink: kink, ratings: number[], setRating?: (p: number) => (r: number) => void }) {
-    return (
-        <tr>
-            <td>
-                <span>{kink}</span>
-                <span class={styles.desc}>{description}</span>
-            </td>
-            {positions.map((pos, p) => (
-                <td>
-                    <Rater text={pos} rating={ratings[p]} setRating={setRating && setRating(p)} clickable={true} />
-                </td>
-            ))}
-            {positions.length === 1 && <td />}
-        </tr>
-    );
-}
 
 export function Category({ cat, kinks, ratings, setRating }: {
     cat: string, kinks: kink[], ratings: number[][],
-    setRating: (k: number) => (p: number) => (r: number) => void
+    setRating?: (k: number) => (p: number) => (r: number) => void
 }) {
     return (
         <div class={styles.category}>
@@ -31,7 +14,7 @@ export function Category({ cat, kinks, ratings, setRating }: {
             <table>
                 <tbody>
                     {kinks.map((kink, i) => (
-                        <Kink kink={kink} ratings={ratings[i]} setRating={setRating(i)} />
+                        <Kink kink={kink} ratings={ratings[i]} setRating={setRating && setRating(i)} />
                     ))}
                 </tbody>
             </table>
