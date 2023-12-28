@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const kc = `KinkCheck.Top v${version}`;
-let { title = kc, screenshotOptions = {} } = Astro.props;
+let { title = kc, screenshotOptions } = Astro.props;
 if (!title.includes(kc)) title += " | " + kc;
 ---
 

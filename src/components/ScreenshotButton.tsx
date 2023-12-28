@@ -1,6 +1,6 @@
 import html2canvas, { type Options } from "html2canvas";
 
-export default function ScreenshotButton({ title, options }: { title: string, options: Partial<Options> }) {
+export default function ScreenshotButton({ title, options = {} }: { title: string, options?: Partial<Options> }) {
     options.windowWidth ??= 1440;
     let download: HTMLAnchorElement;
     return (
