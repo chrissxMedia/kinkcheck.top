@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { defaultRatings, type kink, type metadata } from "../base";
+import { defaultRatings, encodeKinkCheck, type kink, type metadata } from "../base";
 import Kink from "./Kink";
 import styles from "./KinkCheck.module.css";
 
@@ -46,7 +46,9 @@ export default function KinkCheck(meta: metadata) {
         const p = c[kink];
         p[pos] = rat;
         c[kink] = p;
-        setRatings({ ...ratings, [cat]: c });
+        const r = { ...ratings, [cat]: c };
+        setRatings(r);
+        console.log(encodeKinkCheck(meta, { ratings: r }));
     };
     // TODO: add a name field
     return <main class={styles.catcontainer}>
