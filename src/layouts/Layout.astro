@@ -1,5 +1,5 @@
 ---
-import { BaseLayout } from "cmdesigns";
+import { BaseLayout, Footer } from "cmdesigns";
 import favicon from "../favicon.png";
 import { version } from "../../package.json";
 import ScreenshotButton from "../components/ScreenshotButton";
@@ -11,25 +11,24 @@ export interface Props {
 }
 
 const kc = `KinkCheck.Top v${version}`;
-let { title = kc, screenshotOptions = {} } = Astro.props;
+let { title = kc, screenshotOptions } = Astro.props;
 if (!title.includes(kc)) title += " | " + kc;
 ---
 
-<BaseLayout
-    lang="en"
-    copyrightstart={2023}
-    repo="https://github.com/chrissxMedia/KinkCheck.Top"
-    {title}
-    {favicon}
->
+<BaseLayout lang="en" {title} {favicon}>
     <div id="content">
         <slot />
     </div>
-    <nav slot="footer">
-        <a href="/tlcc">Trans Lesbian Badges</a>
-        <a href="/flag">Flag Generator</a>
-        <ScreenshotButton {title} options={screenshotOptions} client:load />
-    </nav>
+    <Footer start={2023} link="https://github.com/chrissxMedia/KinkCheck.Top">
+        <nav>
+            <!--<a href="/tutorial">Overview & Tutorial</a>-->
+            <a href="/tlcc">Trans Lesbian Badges</a>
+            <a href="/flag">Flag Generator</a>
+            <a href="/rewind">Rewind</a>
+            <!-- TODO: <a href="?">Merch</a> -->
+            <ScreenshotButton {title} options={screenshotOptions} client:load />
+        </nav>
+    </Footer>
 </BaseLayout>
 
 <style>

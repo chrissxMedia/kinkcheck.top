@@ -1,17 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeaderLogo from "../components/HeaderLogo.astro";
-import KinkCheck from "../components/KinkCheck";
+import Main from "../components/Matcher";
 import RatingOverview from "../components/RatingOverview.astro";
 import { kinks } from "../base";
 ---
 
-<Layout>
+<Layout title="Matcher">
 	<header>
-		<HeaderLogo />
+		<HeaderLogo>Matcher</HeaderLogo>
 		<RatingOverview />
 	</header>
-	<KinkCheck kinks={kinks} version="kc0" client:load />
+    <Main kinks={kinks} version="kc0" client:load />
 </Layout>
 
 <style>

@@ -1,12 +1,13 @@
 import html2canvas, { type Options } from "html2canvas";
 
-export default function ScreenshotButton({ title, options }: { title: string, options: Partial<Options> }) {
+export default function ScreenshotButton({ title, options = {} }: { title: string, options?: Partial<Options> }) {
     options.windowWidth ??= 1440;
     let download: HTMLAnchorElement;
     return (
         <>
             <a onClick={async () => {
-                const content = document.getElementById("content")!;
+                // TODO: be able to pass in a selector for what to screenshot
+                const content = document.querySelector("div#content") as HTMLElement;
                 content.style.width = options.windowWidth + "px";
                 const canvas = await html2canvas(content, {
                     backgroundColor: "black",

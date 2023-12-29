@@ -5,42 +5,10 @@
     column-gap: 2ch;
 }
 
-table {
+.table {
     border: 1px solid #303030;
     border-collapse: collapse;
     font-size: 16pt;
-}
-
-tr {
-    border: 1px solid #303030;
-}
-
-td {
-    padding-left: 8px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    position: relative;
-}
-
-.desc {
-    background-color: rgb(var(--cmblack));
-    color: white;
-    visibility: hidden;
-    width: 300px;
-    text-align: center;
-    border-radius: 8pt;
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    left: 0;
-}
-
-td:hover .desc {
-    visibility: visible;
-}
-
-td:hover .desc:hover {
-    visibility: hidden;
 }
 
 .catname {
@@ -54,7 +22,7 @@ td:hover .desc:hover {
 
 @media screen and (width <= 800px) {
     .category,
-    table {
+    .table {
         width: 100%;
     }
 }

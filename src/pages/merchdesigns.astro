@@ -1,0 +1,39 @@
+---
+import HeaderLogo from "../components/HeaderLogo.astro";
+import Rater from "../components/Rater";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="Merch Designs"
+    screenshotOptions={{ windowWidth: 200, scale: 10, backgroundColor: null }}
+>
+    <div class="c">
+        <HeaderLogo includeVersion={false} />
+        <div class="b">
+            <Rater text="" rating={1} clickable={false} />
+        </div>
+    </div>
+    <Rater text="bottom" rating={2} clickable={false} />
+    <Rater text="top" rating={2.5} clickable={false} />
+</Layout>
+
+<style>
+    :global(div#content) {
+        width: max-content;
+        font-size: 16pt;
+    }
+
+    .c :global(h1) {
+        font-size: 1em;
+    }
+
+    .b {
+        padding-left: 8px;
+    }
+
+    .c {
+        display: flex;
+        flex-direction: row;
+    }
+</style>

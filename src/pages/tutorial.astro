@@ -1,0 +1,32 @@
+---
+import { kinks } from "../base";
+import { ExampleTable } from "../components/KinkCheck";
+import MarkdownLayout from "../layouts/MarkdownLayout.astro";
+---
+
+<MarkdownLayout frontmatter={{ title: "Overview & Tutorial" }}>
+    <h2>KinkCheck itself</h2>
+
+    <p>
+        KinkCheck is a way of telling people what you're into and what you don't
+        like. You can of course use it how you like, but it's intended that you
+        fill it out according to your <b>irl</b> preferences and as complete and
+        precise as possible.
+    </p>
+
+    <p>
+        For every kink there may just be a single rating box, or there are
+        multiple positions, like this:
+    </p>
+
+    <ExampleTable
+        kinks={[kinks["General"][7], kinks["General"][0]]}
+        client:only
+    />
+
+    <p>
+        You can left-click (or tap, on a touch screen) to go through the ratings
+        one way and right-click to go backwards. You can also hold down ⇧ Shift
+        or Alt (aka. ⌥ Option) to access “half-steps”.
+    </p>
+</MarkdownLayout>
