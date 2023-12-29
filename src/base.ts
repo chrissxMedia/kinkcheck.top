@@ -153,29 +153,20 @@ export function encodeKinkCheck({ kinks, version }: metadata, { ratings }: kinkc
         Object.entries(kinks).flatMap(([, kinks]) => kinks
             .map<[number, boolean]>(([, pos, id]) => [id, pos.length === 2])));
     const r = packIndexedValues(Object.entries(ratings)
-        .flatMap(([cat, rats]) => kinks[cat].map<[number, number[]]>(([, , id], i) => [id, rats[i]]))
-        .map<[number, boolean[]]>(([id, rat]) => {
-            const enc = (x: number) => x % 1 === 0 ? x : Math.floor(x) | (1 << 3);
-            return [id, leToBits((enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]), 4 * rat.length)];
-        })).flat();
-    return version + "~" + toBase64(fromBitArray(p)) + "~" + toBase64(fromBitArray(r));
+        .flatMap(([cat, rats]) => kinks[cat].map<[number, number[]]>(([, , id], i) => [id, rats[i]])));
+    return JSON.stringify({ version, ratings: r });
 }
 
 export function decodeKinkCheck({ kinks, version }: metadata, s: string): kinkcheck {
-    const x = s.split("~");
-    if (x[0].trim() !== version)
+    const x = JSON.parse(s);
+    if (x.version !== version)
         throw "unsupported kinkcheck serialization version";
     const ratings = defaultRatings(kinks);
-    fromBase64(x[1]).forEach((rat, id) => {
+    x.ratings.forEach((rat: number[], id: number) => {
         Object.keys(ratings).forEach((cat) => {
             ratings[cat].forEach((_, i) => {
                 if (kinks[cat][i][2] === id) {
-                    const dec = (x: number) => (x & 7) + (x & (1 << 3) ? 0.5 : 0);
-                    const r0 = dec(rat);
-                    const r1 = dec(rat >> 4);
-                    const len2 = kinks[cat][i][1].length === 2;
-                    if (len2 || r0 === r1)
-                        ratings[cat][i] = len2 ? [r0, r1] : [r0];
+                    ratings[cat][i] = rat;
                 }
             });
         });
