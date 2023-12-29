@@ -1,5 +1,3 @@
-import { fromBase64, fromBitArray, leToBits, toBase64 } from "smolbin";
-
 export const ratings: [string, string][] = [
     ["i dont know", "#d0d0d0"],
     ["favorite", "#00e0e0"],
