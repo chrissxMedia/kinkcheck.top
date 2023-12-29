@@ -11,6 +11,8 @@ export const ratings: [string, string][] = [
 
 export type positions = [string, string] | [""];
 export type kink = [string, positions, number] | [string, positions, number, string];
+export type kinklist = { [k: string]: kink[] };
+export type metadata = { kinks: kinklist, version: string };
 
 export const kinks: { [k: string]: kink[] } = {
     "General": [

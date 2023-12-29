@@ -11,7 +11,7 @@ export function Category({ cat, kinks, ratings, setRating }: {
     return (
         <div class={styles.category}>
             <h2 class={styles.catname}>{cat}</h2>
-            <table>
+            <table class={styles.table}>
                 <tbody>
                     {kinks.map((kink, i) => (
                         <Kink kink={kink} ratings={ratings[i]} setRating={setRating && setRating(i)} />

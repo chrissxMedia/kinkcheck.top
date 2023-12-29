@@ -5,7 +5,7 @@
     column-gap: 2ch;
 }
 
-table {
+.table {
     border: 1px solid #303030;
     border-collapse: collapse;
     font-size: 16pt;
@@ -22,7 +22,7 @@ table {
 
 @media screen and (width <= 800px) {
     .category,
-    table {
+    .table {
         width: 100%;
     }
 }
