@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import HeaderLogo from "../components/HeaderLogo.astro";
 import KinkCheck from "../components/KinkCheck";
 import RatingOverview from "../components/RatingOverview.astro";
+import { kinks } from "../base";
 ---
 
 <Layout>
@@ -10,7 +11,7 @@ import RatingOverview from "../components/RatingOverview.astro";
 		<HeaderLogo />
 		<RatingOverview />
 	</header>
-	<KinkCheck client:load />
+	<KinkCheck kinks={kinks} version="kc0" client:load />
 </Layout>
 
 <style>
