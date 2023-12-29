@@ -138,8 +138,8 @@ export type ratings = { [k: string]: number[][] };
 export const defaultRatings = (kinks: kinklist): ratings => valueForAllKinks(kinks, 0);
 export type checklist = { [k: string]: boolean[][] };
 export const defaultChecklist = (kinks: kinklist): checklist => valueForAllKinks(kinks, false);
-export type kinkcheck = { ratings: ratings, checklist: checklist };
-export const defaultKinkcheck = (kinks: kinklist): kinkcheck => { return { ratings: defaultRatings(kinks), checklist: defaultChecklist(kinks) } };
+export type kinkcheck = { ratings: ratings };
+export const defaultKinkcheck = (kinks: kinklist): kinkcheck => { return { ratings: defaultRatings(kinks) } };
 
 function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     return indexedValues.reduce<T[]>((arr, [idx, val]) => {
@@ -148,7 +148,7 @@ function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     }, Array(Math.max(...indexedValues.map(([idx]) => idx))));
 }
 
-export function encodeKinkCheck({ kinks, version }: metadata, { ratings, checklist }: kinkcheck): string {
+export function encodeKinkCheck({ kinks, version }: metadata, { ratings }: kinkcheck): string {
     const p = packIndexedValues(
         Object.entries(kinks).flatMap(([, kinks]) => kinks
             .map<[number, boolean]>(([, pos, id]) => [id, pos.length === 2])));
@@ -158,9 +158,7 @@ export function encodeKinkCheck({ kinks, version }: metadata, { ratings, checkli
             const enc = (x: number) => x % 1 === 0 ? x : Math.floor(x) | (1 << 3);
             return [id, leToBits((enc(rat[rat.length == 1 ? 0 : 1]) << 4) | enc(rat[0]), 4 * rat.length)];
         })).flat();
-    const c = packIndexedValues(Object.entries(checklist)
-        .flatMap(([cat, checks]) => kinks[cat].map<[number, boolean[]]>(([, , id], i) => [id, checks[i]])));
-    return version + "~" + toBase64(fromBitArray(p)) + "~" + toBase64(fromBitArray(r)) + "~";
+    return version + "~" + toBase64(fromBitArray(p)) + "~" + toBase64(fromBitArray(r));
 }
 
 export function decodeKinkCheck({ kinks, version }: metadata, s: string): kinkcheck {
@@ -182,6 +180,5 @@ export function decodeKinkCheck({ kinks, version }: metadata, s: string): kinkch
             });
         });
     });
-    const checklist = defaultChecklist(kinks);
-    return { ratings, checklist };
+    return { ratings };
 }
