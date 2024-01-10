@@ -19,6 +19,12 @@ import Layout from "../../layouts/Layout.astro";
 </Layout>
 
 <style>
+    :global(header) {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+
     :global(div#content) {
         width: max-content;
         font-size: 16pt;
