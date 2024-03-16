@@ -20,7 +20,7 @@ export type template = {
 export type template_revision = {
     id: string;
     version: string;
-    created: Date;
+    created: string;
     kinks: kinklist;
 };
 export type Template = template & { revisions: template_revision[] };
@@ -42,7 +42,7 @@ export type check_revision = {
     user_id: string;
     template: string;
     version: string;
-    modified: Date;
+    modified: string;
     data: check_data;
 };
 export type Check = check & { revisions: check_revision[] };
