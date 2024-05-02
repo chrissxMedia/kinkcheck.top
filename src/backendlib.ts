@@ -207,9 +207,9 @@ export async function getCheck({ user, template }: { user: string, template: str
         .order("modified");
     if (err) return [null, err];
 
-    const t = { ...check, revisions };
-    templateCache.set(key, t);
-    return [t, null];
+    const c = { ...check, revisions };
+    checkCache.set(key, c);
+    return [c, null];
 }
 
 export async function getOwnCheck({ cookies }: { cookies: AstroCookies }, template: string):
