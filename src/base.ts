@@ -10,7 +10,7 @@ export const ratings: [string, string][] = [
 export type positions = [string, string] | [""];
 export type kink = [string, positions, number] | [string, positions, number, string];
 export type kinklist = { [k: string]: kink[] };
-export type metadata = { kinks: kinklist, version: string };
+export type template_revision = { kinks: kinklist };
 
 export const kinks: kinklist = {
     "General": [
@@ -137,7 +137,7 @@ export const defaultRatings = (kinks: kinklist): ratings => valueForAllKinks(kin
 export type checklist = { [k: string]: boolean[][] };
 export const defaultChecklist = (kinks: kinklist): checklist => valueForAllKinks(kinks, false);
 export type kinkcheck = { ratings: ratings };
-export const defaultKinkcheck = (kinks: kinklist): kinkcheck => { return { ratings: defaultRatings(kinks) } };
+export const defaultKinkcheck = (kinks: kinklist): kinkcheck => ({ ratings: defaultRatings(kinks) });
 
 function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     return indexedValues.reduce<T[]>((arr, [idx, val]) => {
@@ -146,21 +146,15 @@ function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     }, Array(Math.max(...indexedValues.map(([idx]) => idx))));
 }
 
-export function encodeKinkCheck({ kinks, version }: metadata, { ratings }: kinkcheck): string {
-    const p = packIndexedValues(
-        Object.entries(kinks).flatMap(([, kinks]) => kinks
-            .map<[number, boolean]>(([, pos, id]) => [id, pos.length === 2])));
+export function encodeKinkCheck({ kinks }: { kinks: kinklist }, { ratings }: kinkcheck): string {
     const r = packIndexedValues(Object.entries(ratings)
         .flatMap(([cat, rats]) => kinks[cat].map<[number, number[]]>(([, , id], i) => [id, rats[i]])));
-    return JSON.stringify({ version, ratings: r });
+    return JSON.stringify({ ratings: r });
 }
 
-export function decodeKinkCheck({ kinks, version }: metadata, s: string): kinkcheck {
-    const x = JSON.parse(s);
-    if (x.version !== version)
-        throw "unsupported kinkcheck serialization version";
+export function decodeKinkCheck({ kinks }: { kinks: kinklist }, s: string): kinkcheck {
     const ratings = defaultRatings(kinks);
-    x.ratings.forEach((rat: number[], id: number) => {
+    JSON.parse(s).ratings.forEach((rat: number[], id: number) => {
         Object.keys(ratings).forEach((cat) => {
             ratings[cat].forEach((_, i) => {
                 if (kinks[cat][i][2] === id) {

@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { defaultRatings, encodeKinkCheck, type kink, type metadata } from "../base";
+import { defaultRatings, encodeKinkCheck, type kink, type template_revision } from "../base";
 import Kink from "./Kink";
 import styles from "./KinkCheck.module.css";
 
@@ -39,7 +39,7 @@ export function Category({ cat, kinks, ratings, setRating }: {
     );
 }
 
-export default function KinkCheck(meta: metadata) {
+export default function KinkCheck(meta: template_revision) {
     const [ratings, setRatings] = useState(defaultRatings(meta.kinks));
     const setRating = (cat: string) => (kink: number) => (pos: number) => (rat: number) => {
         const c = ratings[cat];

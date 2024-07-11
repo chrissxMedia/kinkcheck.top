@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { decodeKinkCheck, defaultKinkcheck, kinks, ratings, type metadata } from "../base";
+import { decodeKinkCheck, defaultKinkcheck, kinks, ratings, type template_revision } from "../base";
 import { Category } from "./KinkCheck";
 import kc from "./KinkCheck.module.css";
 import styles from "./Matcher.module.css";
@@ -17,7 +17,7 @@ export function match(a: ratings, b: ratings): ratings {
     ));
 }
 
-export default function Matcher(meta: metadata) {
+export default function Matcher(meta: template_revision) {
     const [partnerA, setPartnerA] = useState("");
     const [partnerB, setPartnerB] = useState("");
     let kcA = defaultKinkcheck(kinks);
