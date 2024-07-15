@@ -21,8 +21,8 @@
 }
 
 @media screen and (width <= 800px) {
-    .category,
-    .table {
+    :global(body:not(.screenshot)) .category,
+    :global(body:not(.screenshot)) .table {
         width: 100%;
     }
 }
