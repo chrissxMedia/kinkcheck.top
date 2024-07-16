@@ -2,29 +2,29 @@ import { expect, test } from "vitest";
 import { decodeKinkCheck, encodeKinkCheck, type kinklist } from "../src/base";
 
 const exampleMeta1 = {
-    kinks: {
-        "Category 1": [
+    kinks: [
+        ["Category 1", [
             ["Kink A", ["top", "bottom"], 0],
             ["Kink B", ["dom", "sub"], 1],
-        ],
-        "Category 2": [
+        ]],
+        ["Category 2", [
             ["Kink C", [""], 2],
-        ],
-     } as kinklist,
+        ]],
+    ] as kinklist,
 };
 
 const exampleMeta2 = {
-    kinks: {
-        "Category 1": [
+    kinks: [
+        ["Category 1", [
             ["Kink B", ["give", "receive"], 1],
-        ],
-        "Category 2": [
+        ]],
+        ["Category 2", [
             ["Kink C", [""], 2],
-        ],
-        "Category 3": [
+        ]],
+        ["Category 3", [
             ["Kink A'", ["top", "bottom"], 0],
-        ],
-    } as kinklist,
+        ]],
+    ] as kinklist,
 };
 
 const exampleCheck = { ratings: [[1, 2], [3, 4], [1.5]] };
