@@ -11,7 +11,7 @@ import { kinks } from "../base";
 		<HeaderLogo />
 		<RatingOverview />
 	</header>
-	<KinkCheck kinks={kinks} version="kc0" client:load />
+	<KinkCheck {kinks} client:load />
 </Layout>
 
 <style>

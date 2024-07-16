@@ -9,17 +9,17 @@ export const ratings: [string, string][] = [
 
 export type positions = [string, string] | [""];
 export type kink = [string, positions, number] | [string, positions, number, string];
-export type kinklist = { [k: string]: kink[] };
-export type metadata = { kinks: kinklist, version: string };
+export type kinklist = [string, kink[]][];
+export type template_revision = { kinks: kinklist };
 
-export const kinks: kinklist = {
-    "General": [
+export const kinks: kinklist = [
+    ["General", [
         ["Fellatio/Blowjobs", ["receive", "give"], 0],
         ["Cunnilingus", ["receive", "give"], 1, "giver licks receiver's vagina"],
         ["Face-Fucking", ["give", "receive"], 2],
         ["Face-Sitting", ["top", "bottom"], 3, "top sits on bottom's face"],
         ["Handjobs", ["give", "receive"], 4],
-        ["Vaginal Penetration", ["top", "bottom"], 98],
+        ["Vaginal Penetration", ["top", "bottom"], 97],
         ["Vaginal Fingering", ["give", "receive"], 5],
         ["Vaginal Fisting", ["give", "receive"], 6],
         ["Rough Sex", [""], 7],
@@ -32,8 +32,8 @@ export const kinks: kinklist = {
         ["Anal Fisting", ["top", "bottom"], 14],
         ["Pegging", ["top", "bottom"], 15, "top anally penetrates bottom with a strap-on"],
         ["Anilingus/Rimming", ["receive", "give"], 16, "bottom licks top's asshole"],
-    ],
-    "BDSM": [
+    ]],
+    ["BDSM", [
         ["Little/Daddy*Mommy", ["dom", "sub"], 17],
         ["Slave/Master*Mistress", ["dom", "sub"], 18],
         ["Pet/Owner", ["dom", "sub"], 19],
@@ -60,8 +60,8 @@ export const kinks: kinklist = {
         ["Teasing", ["dom", "sub"], 42],
         ["Sounding/Urethral Insertion", ["dom", "sub"], 43],
         ["Worship", ["dom", "sub"], 44],
-    ],
-    "Kinks": [
+    ]],
+    ["Kinks", [
         ["Incest", ["cousins", "siblings"], 45],
         ["Incest (any age)", ["parents", "children"], 46],
         ["Impregnation/Pregnancy", ["top", "bottom"], 47],
@@ -83,8 +83,8 @@ export const kinks: kinklist = {
         ["Titfuck", ["top", "bottom"], 62],
         ["Footjob", ["give", "receive"], 63],
         ["Armpit Sex", ["top", "bottom"], 64],
-    ],
-    "Pain": [
+    ]],
+    ["Pain", [
         ["Physical Pain", ["give", "receive"], 65],
         ["Nipple Clamps", ["give", "receive"], 66],
         ["Hard Spanking", ["give", "receive"], 67],
@@ -97,8 +97,8 @@ export const kinks: kinklist = {
         ["Vagina Slapping", ["give", "receive"], 74],
         ["Clothespins", ["give", "receive"], 75],
         ["Needles", ["give", "receive"], 76],
-    ],
-    "Clothing": [
+    ]],
+    ["Clothing", [
         ["Clothed Sex", [""], 77],
         ["Collars", ["dom", "sub"], 78, "sub wears a collar, which might have a leash for dom to pull on"],
         ["Latex", [""], 79],
@@ -111,33 +111,28 @@ export const kinks: kinklist = {
         ["Uniforms", [""], 86],
         ["Cosplay", [""], 87],
         ["Furry", [""], 88],
-    ],
-    "Extreme": [
+    ]],
+    ["Extreme", [
         ["Scat", [""], 89],
         ["Cutting", ["give", "receive"], 90],
         ["Raceplay", ["dom", "sub"], 91],
         ["Bestiality", [""], 92],
         ["Necrophilia", [""], 93],
         ["Hard Rape", ["top", "bottom"], 94],
-        ["Children", [""], 95],
         ["Blood", [""], 96],
-        ["Cannibalism", ["dom", "sub"], 97],
+        ["Cannibalism", ["dom", "sub"], 95],
         ["Torture", ["dom", "sub"], 20],
         ["Genital Mutilation", ["give", "receive"], 21],
-    ],
-};
+    ]],
+];
 
-const valueForAllKinks = <T>(kinks: kinklist, x: T) => Object.fromEntries(
-    Object.entries(kinks).map<[string, T[][]]>(
-        ([cat, kinks]) => [cat, kinks.map((k) => k[1].map(() => x))])
-);
+const valueForAllKinks = <T>(kinks: kinklist, x: T) =>
+    kinks.map<T[][]>((c) => c[1].map((k) => k[1].map(() => x)));
 
-export type ratings = { [k: string]: number[][] };
+export type ratings = number[][][];
 export const defaultRatings = (kinks: kinklist): ratings => valueForAllKinks(kinks, 0);
-export type checklist = { [k: string]: boolean[][] };
-export const defaultChecklist = (kinks: kinklist): checklist => valueForAllKinks(kinks, false);
 export type kinkcheck = { ratings: ratings };
-export const defaultKinkcheck = (kinks: kinklist): kinkcheck => { return { ratings: defaultRatings(kinks) } };
+export const defaultKinkcheck = (kinks: kinklist): kinkcheck => ({ ratings: defaultRatings(kinks) });
 
 function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     return indexedValues.reduce<T[]>((arr, [idx, val]) => {
@@ -146,24 +141,19 @@ function packIndexedValues<T>(indexedValues: [number, T][]): T[] {
     }, Array(Math.max(...indexedValues.map(([idx]) => idx))));
 }
 
-export function encodeKinkCheck({ kinks, version }: metadata, { ratings }: kinkcheck): string {
-    const p = packIndexedValues(
-        Object.entries(kinks).flatMap(([, kinks]) => kinks
-            .map<[number, boolean]>(([, pos, id]) => [id, pos.length === 2])));
-    const r = packIndexedValues(Object.entries(ratings)
-        .flatMap(([cat, rats]) => kinks[cat].map<[number, number[]]>(([, , id], i) => [id, rats[i]])));
-    return JSON.stringify({ version, ratings: r });
+export function encodeKinkCheck({ kinks }: { kinks: kinklist }, { ratings }: kinkcheck): string {
+    const r = packIndexedValues(ratings.flatMap((_, cat) =>
+        kinks[cat][1].map<[number, number[]]>(([, , id], i) => [id, ratings[cat][i]])));
+    return JSON.stringify({ ratings: r });
 }
 
-export function decodeKinkCheck({ kinks, version }: metadata, s: string): kinkcheck {
-    const x = JSON.parse(s);
-    if (x.version !== version)
-        throw "unsupported kinkcheck serialization version";
+export function decodeKinkCheck({ kinks }: { kinks: kinklist }, s: string): kinkcheck {
     const ratings = defaultRatings(kinks);
-    x.ratings.forEach((rat: number[], id: number) => {
-        Object.keys(ratings).forEach((cat) => {
+    JSON.parse(s).ratings.forEach((rat: number[] | undefined, id: number) => {
+        if (!rat) return;
+        ratings.forEach((_, cat) => {
             ratings[cat].forEach((_, i) => {
-                if (kinks[cat][i][2] === id) {
+                if (kinks[cat][1][i][2] === id) {
                     ratings[cat][i] = rat;
                 }
             });
