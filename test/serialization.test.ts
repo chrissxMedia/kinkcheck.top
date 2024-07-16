@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { decodeKinkCheck, encodeKinkCheck, type kinklist } from "../src/base";
+import { decodeKinkCheck, encodeKinkCheck, type kinklist, type kinkcheck, type check_data } from "../src/base";
 
 const exampleMeta1 = {
     kinks: [
@@ -27,22 +27,24 @@ const exampleMeta2 = {
     ] as kinklist,
 };
 
-const exampleCheck = { ratings: [[1, 2], [3, 4], [1.5]] };
+const exampleCheck1: kinkcheck = { ratings: [[[1, 2], [3, 4]], [[1.5]]] };
+const exampleCheck2: kinkcheck = { ratings: [[[3, 4]], [[1.5]], [[1, 2]]] };
 
 test("re-encoding", () => {
-    expect(encodeKinkCheck(exampleMeta1, decodeKinkCheck(exampleMeta1, JSON.stringify(exampleCheck)))).toBe(JSON.stringify(exampleCheck));
+    expect(decodeKinkCheck(exampleMeta1, encodeKinkCheck(exampleMeta1, exampleCheck1))).toStrictEqual(exampleCheck1);
 });
 
 test("extra data is ignored", () => {
-    expect(decodeKinkCheck(exampleMeta1, JSON.stringify({ extra: "data", ...exampleCheck })))
-        .toStrictEqual(decodeKinkCheck(exampleMeta1, JSON.stringify(exampleCheck)));
+    expect(decodeKinkCheck(exampleMeta1, { extra: "data", ...encodeKinkCheck(exampleMeta1, exampleCheck1) } as check_data))
+        .toStrictEqual(exampleCheck1);
 });
 
 test("extra kinks are ignored", () => {
-    expect(decodeKinkCheck(exampleMeta1, JSON.stringify({ ...exampleCheck, ratings: [...exampleCheck.ratings, [0, 1]] })))
-        .toStrictEqual(decodeKinkCheck(exampleMeta1, JSON.stringify(exampleCheck)));
+    expect(decodeKinkCheck(exampleMeta1,
+        { ...exampleCheck1, ratings: [...encodeKinkCheck(exampleMeta1, exampleCheck1).ratings, [0, 1]] }))
+        .toStrictEqual(exampleCheck1);
 });
 
 test("moving kinks around and slightly adjusting them results in the same encoding", () => {
-    expect(JSON.stringify(exampleCheck)).toStrictEqual(encodeKinkCheck(exampleMeta2, decodeKinkCheck(exampleMeta2, JSON.stringify(exampleCheck))));
+    expect(encodeKinkCheck(exampleMeta1, exampleCheck1)).toStrictEqual(encodeKinkCheck(exampleMeta2, exampleCheck2));
 });
